@@ -191,19 +191,6 @@ function getarielPlatformCostfromFloorCount(floorcount) {
     }
 }
 
-// Roof type selection
-let selectedRoofType= "";
-
-const roofTypeRadioButtons = document.getElementsByName("slope");
-for (let i = 0; i < roofTypeRadioButtons.length; i++) {
-    roofTypeRadioButtons[i].addEventListener("change", function() {
-        selectedRoofType = roofTypeRadioButtons[i].value;
-        
-        console.log("Selected Floor Count: " + selectedRoofType);
-        
-    });
-}
-
 // Calculation of pannelcost using roof type and according to roof shade condition
 function truePaannelCost(){
     // Roof type selection
