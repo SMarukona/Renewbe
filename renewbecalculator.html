@@ -291,10 +291,15 @@ function calculateNoOfPanels() {
   
 }
 
-const lasSubmit =  document.getElementById('next9');
-lasSubmit.addEventListener("click", calculateNoOfPanels);
-const lasSubmit =  document.getElementById('next9');
-lasSubmit.addEventListener("click", truePaannelCost);
+const lasSubmit = document.getElementById('next9');
+
+function combinedClickHandler() {
+  calculateNoOfPanels();
+  truePaannelCost();
+}
+
+lasSubmit.addEventListener("click", combinedClickHandler);
+
 
 
 </script>
