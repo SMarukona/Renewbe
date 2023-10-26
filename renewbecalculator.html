@@ -192,7 +192,7 @@ function getarielPlatformCostfromFloorCount(floorcount) {
 }
 
 // Calculation of pannelcost using roof type and according to roof shade condition
-function truePaannelCost(){
+/*function truePaannelCost(){
     // Roof type selection
    let selectedRoofType= "";
    let selectedshade = "";
@@ -217,7 +217,7 @@ function truePaannelCost(){
         
     });
     }
-}
+}*/
 
 const slider1 = document.getElementById('range1');
 const slider1Ouput = document.getElementById('value1');
@@ -240,6 +240,121 @@ function calculateNoOfPanels() {
     
     
     // Calculate Panel Cost
+    var pannelData = [
+    {
+        "Amount of Solar Panels": 1,
+        "Wattage": 410,
+        "Real Wattage": 328,
+        "Tilted": { "Micro (x4)": 0, "String": 0 },
+        "Flat": { "Micro (x4)": 0, "String": 0 }
+    },
+    {
+        "Amount of Solar Panels": 2,
+        "Wattage": 820,
+        "Real Wattage": 656,
+        "Tilted": { "Micro (x4)": 2366, "String": 1831 },
+        "Flat": { "Micro (x4)": 2446, "String": 1853 }
+    },
+    {
+        "Amount of Solar Panels": 3,
+        "Wattage": 1230,
+        "Real Wattage": 984,
+        "Tilted": { "Micro (x4)": 2881, "String": 2292 },
+        "Flat": { "Micro (x4)": 2987, "String": 2327 }
+    },
+    {
+        "Amount of Solar Panels": 4,
+        "Wattage": 1640,
+        "Real Wattage": 1312,
+        "Tilted": { "Micro (x4)": 3482, "String": 2753 },
+        "Flat": { "Micro (x4)": 3528, "String": 2797 }
+    },
+    {
+        "Amount of Solar Panels": 5,
+        "Wattage": 2050,
+        "Real Wattage": 1640,
+        "Tilted": { "Micro (x4)": 4011, "String": 3214 },
+        "Flat": { "Micro (x4)": 4067, "String": 3269 }
+    },
+    {
+        "Amount of Solar Panels": 6,
+        "Wattage": 2460,
+        "Real Wattage": 1968,
+        "Tilted": { "Micro (x4)": 4492, "String": 3626 },
+        "Flat": { "Micro (x4)": 4561, "String": 3694 }
+    },
+    {
+        "Amount of Solar Panels": 7,
+        "Wattage": 2870,
+        "Real Wattage": 2296,
+        "Tilted": { "Micro (x4)": 4976, "String": 4039 },
+        "Flat": { "Micro (x4)": 5055, "String": 4118 }
+    },
+    {
+        "Amount of Solar Panels": 8,
+        "Wattage": 3280,
+        "Real Wattage": 2624,
+        "Tilted": { "Micro (x4)": 5457, "String": 4452 },
+        "Flat": { "Micro (x4)": 5548, "String": 4542 }
+    },
+    {
+        "Amount of Solar Panels": 9,
+        "Wattage": 3690,
+        "Real Wattage": 2952,
+        "Tilted": { "Micro (x4)": 5907, "String": 4864 },
+        "Flat": { "Micro (x4)": 6041, "String": 4966 }
+    },
+    {
+        "Amount of Solar Panels": 10,
+        "Wattage": 4100,
+        "Real Wattage": 3280,
+        "Tilted": { "Micro (x4)": 6421, "String": 5278 },
+        "Flat": { "Micro (x4)": 6536, "String": 5390 }
+    }
+];
+let selectedRoofType = "";
+let selectedShade = "";
+
+const roofTypeRadioButtons = document.getElementsByName("slope");
+const roofShadeRadioButtons = document.getElementsByName("shade");
+
+for (let i = 0; i < roofTypeRadioButtons.length; i++) {
+    roofTypeRadioButtons[i].addEventListener("change", function () {
+        selectedRoofType = roofTypeRadioButtons[i].value;
+        displaySelectedData();
+    });
+}
+
+for (let i = 0; i < roofShadeRadioButtons.length; i++) {
+    roofShadeRadioButtons[i].addEventListener("change", function () {
+        selectedShade = roofShadeRadioButtons[i].value;
+        displaySelectedData();
+    });
+}
+
+function displaySelectedData() {
+    let selectedData;
+    if (selectedRoofType === "Tilted") {
+        selectedData = pannelData.find(data => data[selectedRoofType][selectedShade]);
+    } else {
+        selectedData = pannelData.find(data => data[selectedRoofType][selectedShade]);
+    }
+
+    if (selectedData) {
+        const amountOfPanels = selectedData["Amount of Solar Panels"];
+        const wattage = selectedData["Wattage"];
+        const realWattage = selectedData["Real Wattage"];
+        const cost = selectedData["Cost"][selectedShade];
+
+        console.log("Amount of Solar Panels: " + amountOfPanels);
+        console.log("Wattage: " + wattage);
+        console.log("Real Wattage: " + realWattage);
+        console.log("Panel Cost: $" + cost);
+    } else {
+        console.log("Data not found for the selected options.");
+    }
+}
+
     const pannelCost = 4500;
     
     // Pannel installation price
