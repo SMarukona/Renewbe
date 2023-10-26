@@ -219,13 +219,14 @@ function truePaannelCost(){
         console.log("Selected Floor Count: " + selectedRoofType);
         
     });
+
     }
     
-      for (let i = 0; i < roofTypeRadioButtons.length; i++) {
-        roofTypeRadioButtons[i].addEventListener("change", function() {
-        selectedRoofType = roofTypeRadioButtons[i].value;
+      for (let i = 0; i < roofShadeRadioButtons.length; i++) {
+        roofShadeRadioButtons[i].addEventListener("change", function() {
+        selectedShadeType = roofShadeRadioButtons[i].value;
         
-        console.log("Selected Floor Count: " + selectedRoofType);
+        console.log("Selected Floor Count: " + selectedShadeType);
         
     });
     }
@@ -278,23 +279,7 @@ function calculateNoOfPanels() {
      }
 
     const ctx = document.getElementById('savingsChart');
-    const config = {
-      type: 'line',
-      data: data,
-      options: {
-      responsive: true,
-      plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
-       }
-      }
-     },
-    };
-
+    
     console.log(savings);
    
 
