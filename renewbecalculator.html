@@ -70,7 +70,92 @@ const pannelData = [
         "Real Wattage": 3280,
         "Tilted": { "Micro (x4)": 6421, "String": 5278 },
         "Flat": { "Micro (x4)": 6536, "String": 5390 }
+    },
+    {
+        "Amount of Solar Panels": 11,
+        "Wattage": 4510,
+        "Real Wattage": 3608,
+        "Tilted": { "Micro (x4)": 6904, "String": 5690 },
+        "Flat": { "Micro (x4)": 7029, "String": 5715 }
+    },
+    {
+        "Amount of Solar Panels": 12,
+        "Wattage": 4920,
+        "Real Wattage": 3936,
+        "Tilted": { "Micro (x4)": 7385, "String": 6102 },
+        "Flat": { "Micro (x4)": 7522, "String": 6239 }
+    },
+    {
+        "Amount of Solar Panels": 13,
+        "Wattage": 5330,
+        "Real Wattage": 4264,
+        "Tilted": { "Micro (x4)": 7868, "String": 6516 },
+        "Flat": { "Micro (x4)": 8015, "String": 6664 }
+    },
+    {
+        "Amount of Solar Panels": 14,
+        "Wattage": 5740,
+        "Real Wattage": 4592,
+        "Tilted": { "Micro (x4)": 8350, "String": 6928 },
+        "Flat": { "Micro (x4)": 8510, "String": 7087 }
+    },
+    {
+        "Amount of Solar Panels": 15,
+        "Wattage": 6150,
+        "Real Wattage": 4920,
+        "Tilted": { "Micro (x4)": 8806, "String": 7318 },
+        "Flat": { "Micro (x4)": 8976, "String": 7488 }
+    },
+    {
+        "Amount of Solar Panels": 16,
+        "Wattage": 6560,
+        "Real Wattage": 5248,
+        "Tilted": { "Micro (x4)": 9288, "String": 7730 },
+        "Flat": { "Micro (x4)": 9468, "String": 7911 }
+    },
+    {
+        "Amount of Solar Panels": 17,
+        "Wattage": 6970,
+        "Real Wattage": 5576,
+        "Tilted": { "Micro (x4)": 9768, "String": 8141},
+        "Flat": { "Micro (x4)": 9959, "String": 8334}
+    },
+    {
+        "Amount of Solar Panels": 18,
+        "Wattage": 7380,
+        "Real Wattage": 5904,
+        "Tilted": { "Micro (x4)": 10249, "String": 10249 },
+        "Flat": { "Micro (x4)": 10452, "String": 8757 }
+    },
+    {
+        "Amount of Solar Panels": 19,
+        "Wattage": 7790,
+        "Real Wattage": 6232,
+        "Tilted": { "Micro (x4)": 10729, "String": 8963 },
+        "Flat": { "Micro (x4)": 10943, "String": 9179 }
+    },
+    {
+        "Amount of Solar Panels": 20,
+        "Wattage": 8200,
+        "Real Wattage": 6560,
+        "Tilted": { "Micro (x4)": 11211, "String": 9376 },
+        "Flat": { "Micro (x4)": 11453, "String": 9601 }
+    },
+    {
+        "Amount of Solar Panels": 21,
+        "Wattage": 8610,
+        "Real Wattage": 6888,
+        "Tilted": { "Micro (x4)": 11691, "String": 9787 },
+        "Flat": { "Micro (x4)": 11927, "String": 10024 }
+    },
+    {
+        "Amount of Solar Panels": 22,
+        "Wattage": 9020,
+        "Real Wattage": 7216,
+        "Tilted": { "Micro (x4)": 12139, "String": 10142 },
+        "Flat": { "Micro (x4)": 12387, "String": 10392 }
     }
+    
 ];
 
 
@@ -364,7 +449,7 @@ if (panelIndex !== -1) {
   const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
 
   // Get the panel cost based on the roof type and shade selection
-  const panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
+  panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
 
   console.log("Panel Cost:", panelCost);
 } else {
@@ -404,6 +489,7 @@ if (panelIndex !== -1) {
     console.log("Shaded or not: " + roofShadeSelection);
     console.log("Roof type: " + selectedRoofType);
     console.log("discount amout: " + discountAmount);
+    console.log("Panel Cost: " + panelCost);
     console.log("Total pannel installation cost:" + installationCost);
     console.log("Year electricity cost: " + yearlyElectricityCost);
     console.log("Payback period: " + payBackPeriodFinal);
