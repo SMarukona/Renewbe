@@ -189,35 +189,13 @@ function getarielPlatformCostfromFloorCount(floorcount) {
         default:
             return 0; 
     }
-}
+};
 
-// Calculation of pannelcost using roof type and according to roof shade condition
-/*function truePaannelCost(){
-    // Roof type selection
-   let selectedRoofType= "";
-   let selectedshade = "";
-   const roofTypeRadioButtons = document.getElementsByName("slope");
-   const roofShadeRadioButtons = document.getElementsByName("shade");
-   
-   for (let i = 0; i < roofTypeRadioButtons.length; i++) {
-        roofTypeRadioButtons[i].addEventListener("change", function() {
-        selectedRoofType = roofTypeRadioButtons[i].value;
-        
-        console.log("Selected Floor Count: " + selectedRoofType);
-        
-    });
 
-    }
-    
-      for (let i = 0; i < roofShadeRadioButtons.length; i++) {
-        roofShadeRadioButtons[i].addEventListener("change", function() {
-          selectedshade = roofShadeRadioButtons[i].value;
-        
-        console.log("Is it shade: " + selectedshade);
-        
-    });
-    }
-}*/
+
+
+
+
 
 const slider1 = document.getElementById('range1');
 const slider1Ouput = document.getElementById('value1');
@@ -226,21 +204,18 @@ slider1.addEventListener('input', function(e) {
   slider1Ouput.textContent = e.target.value;
 });
 
-function calculateNoOfPanels() {
+function renewBeCalculater() {
   const yearlyUsage = parseFloat(slider1.value); // Convert the input value to a number
   const capacity = getCapacityFromOrientation(selectedOrientation);
-  const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
-
+  const noOfPanels = yearlyUsage / (405 * capacity);
+  const finalNoOfPannels = Math.round(noOfPanels);
+    
   
-    const noOfPanels = yearlyUsage / (410 * capacity);
-    const finalNoOfPannels = Math.round(noOfPanels);
-    
-    //Yearly electrycity price
-    const yearlyElectricityCost = yearlyUsage * 0.31; 
+  
     
     
-    // Calculate Panel Cost
-    var pannelData = [
+  // Calculate Panel Cost
+  var pannelData = [
     {
         "Amount of Solar Panels": 1,
         "Wattage": 410,
@@ -312,54 +287,71 @@ function calculateNoOfPanels() {
         "Flat": { "Micro (x4)": 6536, "String": 5390 }
     }
 ];
-let selectedRoofType = "";
-let selectedShade = "";
 
+let selectedRoofType = "";
 const roofTypeRadioButtons = document.getElementsByName("slope");
-const roofShadeRadioButtons = document.getElementsByName("shade");
 
 for (let i = 0; i < roofTypeRadioButtons.length; i++) {
     roofTypeRadioButtons[i].addEventListener("change", function () {
         selectedRoofType = roofTypeRadioButtons[i].value;
-        displaySelectedData();
     });
-}
+};
+
+let selectedShade = "";
+const roofShadeRadioButtons = document.getElementsByName("shade");
 
 for (let i = 0; i < roofShadeRadioButtons.length; i++) {
     roofShadeRadioButtons[i].addEventListener("change", function () {
         selectedShade = roofShadeRadioButtons[i].value;
-        displaySelectedData();
+    });
+};
+
+
+
+    const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
+    const pannelCost = 2500;
+
+    // Gov Discount
+    let selectedYear = "";
+
+    const YearRadioButtons = document.getElementsByName("discount");
+
+    const YearRadioButtons = document.getElementsByName("discount");
+for (let i = 0; i < YearRadioButtons.length; i++) {
+    YearRadioButtons[i].addEventListener("change", function() {
+        selectedYear = YearRadioButtons[i].value;
+        console.log("Selected Year: " + selectedYear);
     });
 }
 
-function displaySelectedData() {
-    let selectedData;
-    if (selectedRoofType === "Tilted") {
-        selectedData = pannelData.find(data => data[selectedRoofType][selectedShade]);
+function getGovDiscount(selectedYear, yearlyUsage) {
+    // Check if the house was built before 2014
+    if (selectedYear === "before_2014") {
+        // Calculate the discount based on yearly electricity usage
+        const discount = (yearlyUsage / 1000) * 150;
+        
+        // Ensure the discount does not exceed the maximum of $750
+        return discount <= 750 ? discount : 750;
+    } else if (selectedYear === "after_2014") {
+        // House built after 2014 doesn't qualify for a discount
+        return 0;
     } else {
-        selectedData = pannelData.find(data => data[selectedRoofType][selectedShade]);
-    }
-
-    if (selectedData) {
-        const amountOfPanels = selectedData["Amount of Solar Panels"];
-        const wattage = selectedData["Wattage"];
-        const realWattage = selectedData["Real Wattage"];
-        const cost = selectedData["Cost"][selectedShade];
-
-        console.log("Amount of Solar Panels: " + amountOfPanels);
-        console.log("Wattage: " + wattage);
-        console.log("Real Wattage: " + realWattage);
-        console.log("Panel Cost: $" + cost);
-    } else {
-        console.log("Data not found for the selected options.");
+        // Invalid year selection
+        return 0;
     }
 }
 
-    const pannelCost = 4500;
+// Example usage:
+const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
+console.log("Government Discount: $" + discountAmount);
+    
     
     // Pannel installation price
-    const installationCost = pannelCost + arialPlatformCost;
-    
+    const installationCost = pannelCost + arialPlatformCost + discountAmount;
+
+    //Yearly electrycity price
+    const yearlyElectricityCost = yearlyUsage * 0.31; 
+
     //Payback period
     const payBackPeriod = installationCost/ yearlyElectricityCost;
     const payBackPeriodFinal = Math.round(payBackPeriod);
@@ -387,7 +379,7 @@ function displaySelectedData() {
 
     
     
-    console.log("Number of Panels: " + finalNoOfPannels + "Yearly Electricity Cost: " + yearlyElectricityCost + "Pannel Installation Price: " + installationCost + " Payback Period:" + payBackPeriod+"Years" + " Savings in25 Yeays: " + savingin25YearsFinal);
+    
   
     
   
@@ -396,8 +388,7 @@ function displaySelectedData() {
 const lasSubmit = document.getElementById('next9');
 
 function combinedClickHandler() {
-  calculateNoOfPanels();
-  truePaannelCost();
+  renewBeCalculater();
 }
 
 lasSubmit.addEventListener("click", combinedClickHandler);
