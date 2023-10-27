@@ -343,7 +343,7 @@ function getGovDiscount(selectedYear, yearlyUsage) {
 
 // Example usage:
 const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
-console.log("Government Discount: $" + discountAmount);
+
     
     
     // Pannel installation price
@@ -366,32 +366,27 @@ console.log("Government Discount: $" + discountAmount);
      
     const savings = [];
 
-    for (let i = 25; i >= 1; i--) {
+    for (let i = 26; i >= 1; i--) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
      const savingsInYearFinal = Math.round(savingsInYear);
         savings.push({ year: i, savings: savingsInYearFinal });
      }
 
-    const ctx = document.getElementById('savingsChart');
+    console.log("Yearly USage: " + yearlyUsage);
+    console.log("No of Pannels: " + finalNoOfPannels);
+    console.log("Roof type: " + selectedRoofType);
+    console.log("discount amout: " + discountAmount);
+    console.log("Total pannel installation cost:" + installationCost);
+    console.log("Year electricity cost: " + yearlyElectricityCost);
+    console.log("Payback period: " + payBackPeriodFinal);
+    console.log("Savings in 25 Years: " + savingin25YearsFinal);
+    console.log("Savings over the 25 year period: " + savings);
     
-    console.log(savings);
    
-
-    
-    
-    
-  
-    
-  
 }
 
 const lasSubmit = document.getElementById('next9');
-
-function combinedClickHandler() {
-  renewBeCalculater();
-}
-
-lasSubmit.addEventListener("click", combinedClickHandler);
+lasSubmit.addEventListener("click", renewBeCalculater);
 
 
 
