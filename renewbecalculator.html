@@ -1,7 +1,80 @@
 <script>
 
-const stepCount = 10;
+var pannelData = [
+    {
+        "Amount of Solar Panels": 1,
+        "Wattage": 410,
+        "Real Wattage": 328,
+        "Tilted": { "Micro (x4)": 0, "String": 0 },
+        "Flat": { "Micro (x4)": 0, "String": 0 }
+    },
+    {
+        "Amount of Solar Panels": 2,
+        "Wattage": 820,
+        "Real Wattage": 656,
+        "Tilted": { "Micro (x4)": 2366, "String": 1831 },
+        "Flat": { "Micro (x4)": 2446, "String": 1853 }
+    },
+    {
+        "Amount of Solar Panels": 3,
+        "Wattage": 1230,
+        "Real Wattage": 984,
+        "Tilted": { "Micro (x4)": 2881, "String": 2292 },
+        "Flat": { "Micro (x4)": 2987, "String": 2327 }
+    },
+    {
+        "Amount of Solar Panels": 4,
+        "Wattage": 1640,
+        "Real Wattage": 1312,
+        "Tilted": { "Micro (x4)": 3482, "String": 2753 },
+        "Flat": { "Micro (x4)": 3528, "String": 2797 }
+    },
+    {
+        "Amount of Solar Panels": 5,
+        "Wattage": 2050,
+        "Real Wattage": 1640,
+        "Tilted": { "Micro (x4)": 4011, "String": 3214 },
+        "Flat": { "Micro (x4)": 4067, "String": 3269 }
+    },
+    {
+        "Amount of Solar Panels": 6,
+        "Wattage": 2460,
+        "Real Wattage": 1968,
+        "Tilted": { "Micro (x4)": 4492, "String": 3626 },
+        "Flat": { "Micro (x4)": 4561, "String": 3694 }
+    },
+    {
+        "Amount of Solar Panels": 7,
+        "Wattage": 2870,
+        "Real Wattage": 2296,
+        "Tilted": { "Micro (x4)": 4976, "String": 4039 },
+        "Flat": { "Micro (x4)": 5055, "String": 4118 }
+    },
+    {
+        "Amount of Solar Panels": 8,
+        "Wattage": 3280,
+        "Real Wattage": 2624,
+        "Tilted": { "Micro (x4)": 5457, "String": 4452 },
+        "Flat": { "Micro (x4)": 5548, "String": 4542 }
+    },
+    {
+        "Amount of Solar Panels": 9,
+        "Wattage": 3690,
+        "Real Wattage": 2952,
+        "Tilted": { "Micro (x4)": 5907, "String": 4864 },
+        "Flat": { "Micro (x4)": 6041, "String": 4966 }
+    },
+    {
+        "Amount of Solar Panels": 10,
+        "Wattage": 4100,
+        "Real Wattage": 3280,
+        "Tilted": { "Micro (x4)": 6421, "String": 5278 },
+        "Flat": { "Micro (x4)": 6536, "String": 5390 }
+    }
+];
 
+
+const stepCount = 10;
 const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
 const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
 const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
@@ -242,10 +315,15 @@ let selectedRoofType = "";
 
 for (let i = 0; i < roofTypeRadioButtons.length; i++) {
     roofTypeRadioButtons[i].addEventListener("change", function () {
-        selectedRoofType = roofTypeRadioButtons[i].value;
-        renewBeCalculater(selectedRoofType);
+      selectedRoofType = roofTypeRadioButtons[i].value;
+        getRoofType(selectedRoofType);
  });
 };
+
+function getRoofType(selectedRoofType) {
+    console.log("Slected roof type: " + selectedRoofType);
+    return selectedRoofType;
+}
 
 //Getting roof is shaded or not
   let selectedShade = "";
@@ -253,94 +331,29 @@ for (let i = 0; i < roofTypeRadioButtons.length; i++) {
 
   for (let i = 0; i < roofShadeRadioButtons.length; i++) {
     roofShadeRadioButtons[i].addEventListener("change", function () {
-        selectedShade = roofShadeRadioButtons[i].value;
-        renewBeCalculater(selectedShade);
+      selectedShade = roofShadeRadioButtons[i].value;
+        getShadeType(selectedShade);
     });
   };
 
-//Calculate the 
-var pannelData = [
-    {
-        "Amount of Solar Panels": 1,
-        "Wattage": 410,
-        "Real Wattage": 328,
-        "Tilted": { "Micro (x4)": 0, "String": 0 },
-        "Flat": { "Micro (x4)": 0, "String": 0 }
-    },
-    {
-        "Amount of Solar Panels": 2,
-        "Wattage": 820,
-        "Real Wattage": 656,
-        "Tilted": { "Micro (x4)": 2366, "String": 1831 },
-        "Flat": { "Micro (x4)": 2446, "String": 1853 }
-    },
-    {
-        "Amount of Solar Panels": 3,
-        "Wattage": 1230,
-        "Real Wattage": 984,
-        "Tilted": { "Micro (x4)": 2881, "String": 2292 },
-        "Flat": { "Micro (x4)": 2987, "String": 2327 }
-    },
-    {
-        "Amount of Solar Panels": 4,
-        "Wattage": 1640,
-        "Real Wattage": 1312,
-        "Tilted": { "Micro (x4)": 3482, "String": 2753 },
-        "Flat": { "Micro (x4)": 3528, "String": 2797 }
-    },
-    {
-        "Amount of Solar Panels": 5,
-        "Wattage": 2050,
-        "Real Wattage": 1640,
-        "Tilted": { "Micro (x4)": 4011, "String": 3214 },
-        "Flat": { "Micro (x4)": 4067, "String": 3269 }
-    },
-    {
-        "Amount of Solar Panels": 6,
-        "Wattage": 2460,
-        "Real Wattage": 1968,
-        "Tilted": { "Micro (x4)": 4492, "String": 3626 },
-        "Flat": { "Micro (x4)": 4561, "String": 3694 }
-    },
-    {
-        "Amount of Solar Panels": 7,
-        "Wattage": 2870,
-        "Real Wattage": 2296,
-        "Tilted": { "Micro (x4)": 4976, "String": 4039 },
-        "Flat": { "Micro (x4)": 5055, "String": 4118 }
-    },
-    {
-        "Amount of Solar Panels": 8,
-        "Wattage": 3280,
-        "Real Wattage": 2624,
-        "Tilted": { "Micro (x4)": 5457, "String": 4452 },
-        "Flat": { "Micro (x4)": 5548, "String": 4542 }
-    },
-    {
-        "Amount of Solar Panels": 9,
-        "Wattage": 3690,
-        "Real Wattage": 2952,
-        "Tilted": { "Micro (x4)": 5907, "String": 4864 },
-        "Flat": { "Micro (x4)": 6041, "String": 4966 }
-    },
-    {
-        "Amount of Solar Panels": 10,
-        "Wattage": 4100,
-        "Real Wattage": 3280,
-        "Tilted": { "Micro (x4)": 6421, "String": 5278 },
-        "Flat": { "Micro (x4)": 6536, "String": 5390 }
-    }
-];
 
-function renewBeCalculater(selectedRoofType, selectedShade) {
+  function getShadeType(selectedShade) {
+    return selectedShade;
+    console.log("Slected roof type: " + selectedShade);
+
+  }
+
+
+function renewBeCalculater() {
   const capacity = getCapacityFromOrientation(selectedOrientation);
   const noOfPanels = yearlyUsage / (405 * capacity);
   const finalNoOfPanels = Math.round(noOfPanels);
-  
-  console.log("No of Pannels: "+ finalNoOfPanels + "Roof Type: "+ selectedRoofType + "Is it shaded: " + selectedShade);
-    
+
     const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
     const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
+    const roofTypeSelection = selectedRoofType;
+
+    console.log("roofTypeSelection: " + roofTypeSelection);
 
     // Pannel installation price
     const installationCost = panelCost + arialPlatformCost - discountAmount;
