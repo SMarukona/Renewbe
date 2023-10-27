@@ -236,14 +236,30 @@ yearUsageSubmit.addEventListener('click', function () {
 });
 
 
-function renewBeCalculater() {
-  
-  const capacity = getCapacityFromOrientation(selectedOrientation);
-  const noOfPanels = yearlyUsage / (405 * capacity);
-  const finalNoOfPanels = Math.round(noOfPanels);
-  
-  // Calculate Panel Cost
-  var pannelData = [
+//Getting Roof type
+let selectedRoofType = "";
+  const roofTypeRadioButtons = document.getElementsByName("slope");
+
+for (let i = 0; i < roofTypeRadioButtons.length; i++) {
+    roofTypeRadioButtons[i].addEventListener("change", function () {
+        selectedRoofType = roofTypeRadioButtons[i].value;
+        renewBeCalculater(selectedRoofType);
+ });
+};
+
+//Getting roof is shaded or not
+  let selectedShade = "";
+  const roofShadeRadioButtons = document.getElementsByName("shade");
+
+  for (let i = 0; i < roofShadeRadioButtons.length; i++) {
+    roofShadeRadioButtons[i].addEventListener("change", function () {
+        selectedShade = roofShadeRadioButtons[i].value;
+        renewBeCalculater(selectedShade);
+    });
+  };
+
+//Calculate the 
+var pannelData = [
     {
         "Amount of Solar Panels": 1,
         "Wattage": 410,
@@ -316,28 +332,14 @@ function renewBeCalculater() {
     }
 ];
 
-let selectedRoofType = "";
-const roofTypeRadioButtons = document.getElementsByName("slope");
-
-for (let i = 0; i < roofTypeRadioButtons.length; i++) {
-    roofTypeRadioButtons[i].addEventListener("change", function () {
-        selectedRoofType = roofTypeRadioButtons[i].value;
-    });
-};
-
-let selectedShade = "";
-const roofShadeRadioButtons = document.getElementsByName("shade");
-
-for (let i = 0; i < roofShadeRadioButtons.length; i++) {
-    roofShadeRadioButtons[i].addEventListener("change", function () {
-        selectedShade = roofShadeRadioButtons[i].value;
-    });
-};
-
-
-    const panelCost = 2500;
+function renewBeCalculater(selectedRoofType, selectedShade) {
+  const capacity = getCapacityFromOrientation(selectedOrientation);
+  const noOfPanels = yearlyUsage / (405 * capacity);
+  const finalNoOfPanels = Math.round(noOfPanels);
+  
+  console.log("No of Pannels: "+ finalNoOfPanels + "Roof Type: "+ selectedRoofType + "Is it shaded: " + selectedShade);
+    
     const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
-
     const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
 
     // Pannel installation price
