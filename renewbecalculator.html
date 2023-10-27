@@ -194,10 +194,11 @@ function getarielPlatformCostfromFloorCount(floorcount) {
 const slider1 = document.getElementById('range1');
 const slider1Output = document.getElementById('value1');
 let selectedYear = "";
+let yearlyUsage = 1000; 
 
 slider1.addEventListener('input', function (e) {
   slider1Output.textContent = e.target.value;
-  const yearlyUsage = parseFloat(e.target.value);
+  yearlyUsage = parseFloat(e.target.value); // Update yearlyUsage
   const discount = getGovDiscount(selectedYear, yearlyUsage);
   console.log("Discount: $" + discount); // Log the discount value
 });
@@ -209,7 +210,7 @@ for (let i = 0; i < YearRadioButtons.length; i++) {
   YearRadioButtons[i].addEventListener("change", function () {
     selectedYear = YearRadioButtons[i].value;
     console.log("Selected Year: " + selectedYear);
-    const yearlyUsage = parseFloat(slider1.value);
+    yearlyUsage = parseFloat(slider1.value); // Update yearlyUsage
     const discount = getGovDiscount(selectedYear, yearlyUsage);
     console.log("Discount: $" + discount); // Log the discount value
   });
