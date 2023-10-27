@@ -283,16 +283,6 @@ floorCountRadioGroup.forEach(radio => {
   });
 });
 
-const usageCheckbox = document.getElementById('usage_checkbox');
-const noOfUserCon = document.getElementById('noofuers_con');
-
-usageCheckbox.addEventListener('change', function() {
-  if (usageCheckbox.checked) {
-    noOfUserCon.style.display = 'block';
-  } else {
-    noOfUserCon.style.display = 'none';
-  }
-});
 
 // Orientation
 let selectedOrientation = "";
@@ -349,6 +339,11 @@ function getarielPlatformCostfromFloorCount(floorcount) {
     }
 };
 
+
+
+
+
+
 const slider1 = document.getElementById('range1');
 const slider1Output = document.getElementById('value1');
 let selectedYear = "";
@@ -360,6 +355,29 @@ slider1.addEventListener('input', function (e) {
   const discount = getGovDiscount(selectedYear, yearlyUsage);
   console.log("Discount: $" + discount); // Log the discount value
 });
+
+
+const usageCheckbox = document.getElementById('usage_checkbox');
+const noOfUserCon = document.getElementById('noofuers_con');
+
+usageCheckbox.addEventListener('change', function() {
+  if (usageCheckbox.checked) {
+    noOfUserCon.style.display = 'block';
+  } else {
+    noOfUserCon.style.display = 'none';
+  }
+});
+
+const slider2 = document.getElementById('range2');
+const slider2Output = document.getElementById('value2');
+
+slider2.addEventListener('input', function (e) {
+  slider2Output.textContent = e.target.value;
+  console.log(e.target.value);
+});
+
+
+
 
 // Gov Discount
 const YearRadioButtons = document.getElementsByName("discount");
