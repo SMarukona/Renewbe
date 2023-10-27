@@ -343,11 +343,54 @@ function getarielPlatformCostfromFloorCount(floorcount) {
 
 
 
-
-const slider1 = document.getElementById('range1');
-const slider1Output = document.getElementById('value1');
 let selectedYear = "";
 let yearlyUsage = 1000; 
+let membersOffamily = 1;
+const slider1 = document.getElementById('range1');
+const slider1Output = document.getElementById('value1');
+const usageCheckbox = document.getElementById('usage_checkbox');
+const noOfUserCon = document.getElementById('noofuers_con');
+const slider2 = document.getElementById('range2');
+const slider2Output = document.getElementById('value2');
+
+function updateSlider1AndYearlyUsage() {
+  switch (membersOffamily) {
+    case 1:
+      yearlyUsage = 1500;
+      break;
+    case 2:
+      yearlyUsage = 3000;
+      break;
+    case 3:
+      yearlyUsage = 3500;
+      break;
+    case 4:
+      yearlyUsage = 4000;
+      break;
+    case 5:
+      yearlyUsage = 4000;
+      break;
+    case 6:
+      yearlyUsage = 4500;
+      break;
+    case 7:
+      yearlyUsage = 5000;
+      break;
+    case 8:
+      yearlyUsage = 5500;
+      break;
+    case 9:
+      yearlyUsage = 6000;
+      break;
+    case 10:
+      yearlyUsage = 7000;
+      break;
+    default:
+      yearlyUsage = 1000; // Default value for other cases
+  }
+  slider1.value = yearlyUsage;
+  slider1Output.textContent = yearlyUsage;
+}
 
 slider1.addEventListener('input', function (e) {
   slider1Output.textContent = e.target.value;
@@ -357,26 +400,31 @@ slider1.addEventListener('input', function (e) {
 });
 
 
-const usageCheckbox = document.getElementById('usage_checkbox');
-const noOfUserCon = document.getElementById('noofuers_con');
+
 
 usageCheckbox.addEventListener('change', function() {
   if (usageCheckbox.checked) {
     noOfUserCon.style.display = 'block';
+    slider1.style.display = 'none';
   } else {
     noOfUserCon.style.display = 'none';
+    slider1.style.display = 'block';
+  }
+  if (usageCheckbox.checked) {
+    updateSlider1AndYearlyUsage();
   }
 });
 
-const slider2 = document.getElementById('range2');
-const slider2Output = document.getElementById('value2');
+
 
 slider2.addEventListener('input', function (e) {
   slider2Output.textContent = e.target.value;
+  membersOffamily = parseFloat(e.target.value);
+  if (usageCheckbox.checked) {
+    updateSlider1AndYearlyUsage();
+  }
   console.log(e.target.value);
 });
-
-
 
 
 // Gov Discount
