@@ -524,8 +524,18 @@ if (panelIndex !== -1) {
 
 
     // Pannel installation price
+    const instalationwithoutdiscount = panelCost + arialPlatformCost;
     const installationCost = panelCost + arialPlatformCost - discountAmount;
 
+    const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+    normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+
+    const govDiscountWrapper = document.getElementById('gov_discount');
+    govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+
+    const totalInstolllationWrapper = document.getElementById('total_instolllation');
+    totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+    
     //Yearly electrycity price
     const yearlyElectricityCost = yearlyUsage * 0.31; 
 
