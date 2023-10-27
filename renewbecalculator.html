@@ -229,6 +229,7 @@ slopeRadioGroup.forEach(radio => {
     } else if (flatRadio.checked) {
       flatRoofText.style.display = "block";
       otherRoofText.style.display = "none";
+      nextButtons[1].classList.remove("disabled");
     } else {
       otherRoofText.style.display = "none";
       flatRoofText.style.display = "none";
