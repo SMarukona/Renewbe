@@ -352,8 +352,10 @@ function renewBeCalculater() {
     const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
     const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
     const roofTypeSelection = selectedRoofType;
+    const roofShadeSelection = selectedShade;
 
     console.log("roofTypeSelection: " + roofTypeSelection);
+    console.log("Shaded or not: " + roofShadeSelection);
 
     // Pannel installation price
     const installationCost = panelCost + arialPlatformCost - discountAmount;
