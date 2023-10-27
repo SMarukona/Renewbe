@@ -1,6 +1,6 @@
 <script>
 
-var pannelData = [
+const pannelData = [
     {
         "Amount of Solar Panels": 1,
         "Wattage": 410,
@@ -354,9 +354,23 @@ function renewBeCalculater() {
     const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
     const roofTypeSelection = selectedRoofType;
     const roofShadeSelection = selectedShade;
+    let panelCost;
+    // Find the index in pannelData for the given number of panels
+const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
 
-    console.log("roofTypeSelection: " + roofTypeSelection);
-    console.log("Shaded or not: " + roofShadeSelection);
+if (panelIndex !== -1) {
+  // Determine the roof type and shade selection
+  const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
+  const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
+
+  // Get the panel cost based on the roof type and shade selection
+  const panelCost = pannelData[panelIndex][roofType][shadeSelection];
+
+  console.log("Panel Cost:", panelCost);
+} else {
+  console.log("Panel data not found for the given number of panels.");
+}
+
 
     // Pannel installation price
     const installationCost = panelCost + arialPlatformCost - discountAmount;
@@ -386,6 +400,8 @@ function renewBeCalculater() {
 
     console.log("Yearly USage: " + yearlyUsage);
     console.log("No of Pannels: " + finalNoOfPanels);
+    console.log("roofTypeSelection: " + roofTypeSelection);
+    console.log("Shaded or not: " + roofShadeSelection);
     console.log("Roof type: " + selectedRoofType);
     console.log("discount amout: " + discountAmount);
     console.log("Total pannel installation cost:" + installationCost);
