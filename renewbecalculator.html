@@ -198,8 +198,51 @@ slider1.addEventListener('input', function(e) {
   slider1Ouput.textContent = e.target.value;
 });
 
+// Yearly usage
+function getYearlyUsage() {
+  return parseFloat(slider1.value); // Convert the input value to a number
+}
+
+const yearUsagesubmit = document.getElementById('next8');
+
+yearUsagesubmit.addEventListener('click', function() {
+  console.log("Yearly usage: " + getYearlyUsage());
+});
+
+// Gov Discount
+let selectedYear = "";
+
+const YearRadioButtons = document.getElementsByName("discount");
+
+for (let i = 0; i < YearRadioButtons.length; i++) {
+    YearRadioButtons[i].addEventListener("change", function() {
+        selectedYear = YearRadioButtons[i].value;
+        console.log("Selected Year: " + selectedYear);
+    });
+}
+
+function getGovDiscount(selectedYear, yearlyUsage) {
+    // Check if the house was built before 2014
+    if (selectedYear === "before_2014") {
+        // Calculate the discount based on yearly electricity usage
+        const discount = (yearlyUsage / 1000) * 150;
+        
+        // Ensure the discount does not exceed the maximum of $750
+        return discount <= 750 ? discount : 750;
+    } else if (selectedYear === "after_2014") {
+        // House built after 2014 doesn't qualify for a discount
+        return 0;
+    } else {
+        // Invalid year selection
+        return 0;
+    }
+}
+
+// Example usage:
+const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
+
 function renewBeCalculater() {
-  const yearlyUsage = parseFloat(slider1.value); // Convert the input value to a number
+  
   const capacity = getCapacityFromOrientation(selectedOrientation);
   const noOfPanels = yearlyUsage / (405 * capacity);
   const finalNoOfPannels = Math.round(noOfPanels);
@@ -305,39 +348,6 @@ for (let i = 0; i < roofShadeRadioButtons.length; i++) {
     const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
     const pannelCost = 2500;
 
-    // Gov Discount
-    let selectedYear = "";
-
-    const YearRadioButtons = document.getElementsByName("discount");
-for (let i = 0; i < YearRadioButtons.length; i++) {
-    YearRadioButtons[i].addEventListener("change", function() {
-        selectedYear = YearRadioButtons[i].value;
-        console.log("Selected Year: " + selectedYear);
-    });
-}
-
-function getGovDiscount(selectedYear, yearlyUsage) {
-    // Check if the house was built before 2014
-    if (selectedYear === "before_2014") {
-        // Calculate the discount based on yearly electricity usage
-        const discount = (yearlyUsage / 1000) * 150;
-        
-        // Ensure the discount does not exceed the maximum of $750
-        return discount <= 750 ? discount : 750;
-    } else if (selectedYear === "after_2014") {
-        // House built after 2014 doesn't qualify for a discount
-        return 0;
-    } else {
-        // Invalid year selection
-        return 0;
-    }
-}
-
-// Example usage:
-const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
-
-    
-    
     // Pannel installation price
     const installationCost = pannelCost + arialPlatformCost + discountAmount;
 
