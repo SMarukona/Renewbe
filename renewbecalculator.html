@@ -364,7 +364,7 @@ if (panelIndex !== -1) {
   const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
 
   // Get the panel cost based on the roof type and shade selection
-  const panelCost = pannelData[panelIndex][roofType][shadeSelection];
+  const panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
 
   console.log("Panel Cost:", panelCost);
 } else {
