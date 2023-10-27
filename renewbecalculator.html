@@ -192,54 +192,50 @@ function getarielPlatformCostfromFloorCount(floorcount) {
 };
 
 const slider1 = document.getElementById('range1');
-const slider1Ouput = document.getElementById('value1');
+const slider1Output = document.getElementById('value1');
+let selectedYear = "";
 
-slider1.addEventListener('input', function(e) {
-  slider1Ouput.textContent = e.target.value;
-});
-
-// Yearly usage
-function getYearlyUsage() {
-  return parseFloat(slider1.value); // Convert the input value to a number
-}
-
-const yearUsagesubmit = document.getElementById('next8');
-
-yearUsagesubmit.addEventListener('click', function() {
-  console.log("Yearly usage: " + getYearlyUsage());
+slider1.addEventListener('input', function (e) {
+  slider1Output.textContent = e.target.value;
+  const yearlyUsage = parseFloat(e.target.value);
+  const discount = getGovDiscount(selectedYear, yearlyUsage);
+  console.log("Discount: $" + discount); // Log the discount value
 });
 
 // Gov Discount
-let selectedYear = "";
-
 const YearRadioButtons = document.getElementsByName("discount");
 
 for (let i = 0; i < YearRadioButtons.length; i++) {
-    YearRadioButtons[i].addEventListener("change", function() {
-        selectedYear = YearRadioButtons[i].value;
-        console.log("Selected Year: " + selectedYear);
-    });
+  YearRadioButtons[i].addEventListener("change", function () {
+    selectedYear = YearRadioButtons[i].value;
+    console.log("Selected Year: " + selectedYear);
+    const yearlyUsage = parseFloat(slider1.value);
+    const discount = getGovDiscount(selectedYear, yearlyUsage);
+    console.log("Discount: $" + discount); // Log the discount value
+  });
 }
 
 function getGovDiscount(selectedYear, yearlyUsage) {
-    // Check if the house was built before 2014
-    if (selectedYear === "before_2014") {
-        // Calculate the discount based on yearly electricity usage
-        const discount = (yearlyUsage / 1000) * 150;
-        
-        // Ensure the discount does not exceed the maximum of $750
-        return discount <= 750 ? discount : 750;
-    } else if (selectedYear === "after_2014") {
-        // House built after 2014 doesn't qualify for a discount
-        return 0;
-    } else {
-        // Invalid year selection
-        return 0;
-    }
+  if (selectedYear === "before_2014") {
+    const discount = (yearlyUsage / 1000) * 150;
+    return discount <= 750 ? discount : 750;
+  } else if (selectedYear === "after_2014") {
+    return 0;
+  } else {
+    return 0;
+  }
 }
 
+const yearUsageSubmit = document.getElementById('next8');
+yearUsageSubmit.addEventListener('click', function () {
+  const yearlyUsage = parseFloat(slider1.value);
+  const discount = getGovDiscount(selectedYear, yearlyUsage);
+  console.log("Discount: $" + discount); // Log the discount value
+  // Use 'discount' for any processing or submit actions
+});
+
+
 function renewBeCalculater() {
-  
   const capacity = getCapacityFromOrientation(selectedOrientation);
   const noOfPanels = yearlyUsage / (405 * capacity);
   const finalNoOfPannels = Math.round(noOfPanels);
