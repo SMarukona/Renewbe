@@ -580,7 +580,13 @@ if (panelIndex !== -1) {
         }]
        },
       options: {
-      scales: {
+       responsive: true,
+       plugins: {
+        title: {
+         display: false,
+      },
+    },
+       scales: {
         x: {
           beginAtZero: true,
           title:{
