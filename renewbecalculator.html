@@ -602,22 +602,40 @@ if (panelIndex !== -1) {
           border: {
           color: 'red'
              },
+          min: 1,
+          max: 25,
           ticks: {
               stepSize: 5
             },
 
           title:{
             display: true,
-            text: 'Time(Years)'
+            text: 'Time(Years)',
+            font: {
+              weight: 'bold'
+            }
           }
            },
 
         y: {
           position: 'right',
+          grid: {
+          color: function(context) {
+            if (context.tick.value = 0) {
+              return '#000000';
+            } 
+
+            
+             },
+          },
+
           beginAtZero: true,
           title:{
             display: true,
-            text: 'Savings(€)'
+            text: 'Savings(€)',
+            font: {
+              weight: 'bold'
+            }
            }
           }
 
