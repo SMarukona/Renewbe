@@ -599,13 +599,10 @@ if (panelIndex !== -1) {
        scales: {
         x: {
           beginAtZero: true,
-          border: {
-          color: 'red'
-             },
           min: 1,
           max: 25,
           ticks: {
-              stepSize: 5
+              stepSize: 100
             },
 
           title:{
@@ -619,16 +616,6 @@ if (panelIndex !== -1) {
 
         y: {
           position: 'right',
-          grid: {
-          color: function(context) {
-            if (context.tick.value = 0) {
-              return '#000000';
-            } 
-
-            
-             },
-          },
-
           beginAtZero: true,
           title:{
             display: true,
