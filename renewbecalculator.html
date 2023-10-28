@@ -576,7 +576,9 @@ if (panelIndex !== -1) {
       labels: savings.map(row => row.year),
       datasets: [{
         data: savings.map(row => row.savingsovertime),
-        borderWidth: 3
+        borderWidth: 1,
+        borderColor: '#36A2EB',
+        backgroundColor: '#9BD0F5',
         }]
        },
       options: {
