@@ -563,7 +563,7 @@ if (panelIndex !== -1) {
     
     const savings = [];
 
-    for (let i = 25; i >= 1; i--) {
+    for (let let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
      const savingsInYearFinal = Math.round(savingsInYear);
         savings.push({ year: i, savingsovertime: savingsInYearFinal });
@@ -583,7 +583,7 @@ if (panelIndex !== -1) {
       options: {
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero: false
            }
         }
        }
