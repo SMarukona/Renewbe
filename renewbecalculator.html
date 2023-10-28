@@ -563,20 +563,20 @@ if (panelIndex !== -1) {
     
     const savings = [];
 
-    for (let i = 26; i >= 1; i--) {
+    for (let i = 25; i >= 1; i--) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
      const savingsInYearFinal = Math.round(savingsInYear);
-        savings.push({ year: i, savings: savingsInYearFinal });
+        savings.push({ year: i, savingsovertime: savingsInYearFinal });
      }
 
      const ctx = document.getElementById('savingsChart');
      new Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: savings.map(row => row.year),
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Profit Over the 25 Year Period in € s',
+        data: savings.map(row => row.savingsovertime),
         borderWidth: 1
         }]
        },
