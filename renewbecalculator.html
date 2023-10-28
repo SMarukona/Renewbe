@@ -583,13 +583,13 @@ if (panelIndex !== -1) {
         fill:{
            target: 'origin',
            below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0.1)'
+           above: 'rgba(0, 0, 0, 0)'
         }
         }]
        },
       options: {
        responsive: true,
-
+       animation: false,
        plugins: { 
         legend: {
          display: false
@@ -599,6 +599,9 @@ if (panelIndex !== -1) {
        scales: {
         x: {
           beginAtZero: true,
+          border: {
+          color: 'red'
+        },
           title:{
             display: true,
             text: 'Time(Years)'
