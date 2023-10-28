@@ -566,9 +566,9 @@ if (panelIndex !== -1) {
     for (let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
      const savingsInYearFinal = Math.round(savingsInYear);
-        savings.push({ year: i, savingsovertime: savingsInYearFinal });
+        savings.push({ year: i.toString(), savingsovertime: savingsInYearFinal });
      }
-
+     
      const ctx = document.getElementById('savingsChart');
      new Chart(ctx, {
       type: 'line',
@@ -588,7 +588,7 @@ if (panelIndex !== -1) {
         }]
        },
       options: {
-       responsive: true,
+       
        animation: false,
        plugins: { 
         legend: {
@@ -598,11 +598,11 @@ if (panelIndex !== -1) {
 
        scales: {
         x: {
-          beginAtZero: true,
+          
           min: 1,
           max: 25,
           ticks: {
-              stepSize: 100
+              stepSize: 5,
             },
 
           title:{
@@ -616,7 +616,7 @@ if (panelIndex !== -1) {
 
         y: {
           position: 'right',
-          beginAtZero: true,
+          
           title:{
             display: true,
             text: 'Savings(€)',
