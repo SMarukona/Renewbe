@@ -575,16 +575,29 @@ if (panelIndex !== -1) {
       data: {
       labels: savings.map(row => row.year),
       datasets: [{
-        label: 'Profit Over the 25 Year Period in € s',
         data: savings.map(row => row.savingsovertime),
-        borderWidth: 1
+        borderWidth: 3
         }]
        },
       options: {
       scales: {
+        x: {
+          beginAtZero: true,
+          title:{
+            display: true,
+            text: 'Time(Years)'
+          }
+           },
+
         y: {
-          beginAtZero: false
+
+          beginAtZero: true,
+          title:{
+            display: true,
+            text: 'Savings(€)'
+          }
            }
+
         }
        }
       });
