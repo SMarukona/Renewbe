@@ -577,8 +577,13 @@ if (panelIndex !== -1) {
       datasets: [{
         data: savings.map(row => row.savingsovertime),
         borderWidth: 1,
-        borderColor: '#36A2EB',
-        backgroundColor: '#9BD0F5',
+        borderColor: '#004f56',
+        backgroundColor: '#e1f0ed',
+        tension: 0.4,
+        fill:{
+           target: 'origin',
+           below: 'rgb(254, 88, 21)'
+        }
         }]
        },
       options: {
