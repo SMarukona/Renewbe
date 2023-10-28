@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 
 const pannelData = [
@@ -567,6 +569,27 @@ if (panelIndex !== -1) {
         savings.push({ year: i, savings: savingsInYearFinal });
      }
 
+     const ctx = document.getElementById('savingsChart');
+     new Chart(ctx, {
+      type: 'bar',
+      data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+        }]
+       },
+      options: {
+      scales: {
+        y: {
+          beginAtZero: true
+           }
+        }
+       }
+      });
+
+
     console.log("Yearly USage: " + yearlyUsage);
     console.log("No of Pannels: " + finalNoOfPanels);
     console.log("roofTypeSelection: " + roofTypeSelection);
@@ -578,7 +601,7 @@ if (panelIndex !== -1) {
     console.log("Year electricity cost: " + yearlyElectricityCost);
     console.log("Payback period: " + payBackPeriodFinal);
     console.log("Savings in 25 Years: " + savingin25YearsFinal);
-    console.log("Savings over the 25 year period: " + savings);
+    console.log(savings);
     
    
 }
