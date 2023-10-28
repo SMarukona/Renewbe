@@ -581,11 +581,13 @@ if (panelIndex !== -1) {
        },
       options: {
        responsive: true,
-       plugins: {
-        title: {
-         display: false,
-      },
-    },
+       
+       plugins: { 
+        legend: {
+         display: false
+         },
+       },
+
        scales: {
         x: {
           beginAtZero: true,
@@ -596,7 +598,7 @@ if (panelIndex !== -1) {
            },
 
         y: {
-
+          position: 'right',
           beginAtZero: true,
           title:{
             display: true,
