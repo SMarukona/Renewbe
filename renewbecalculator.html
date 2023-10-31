@@ -212,23 +212,6 @@ propertyRadioGroup.forEach(radio => {
   });
 });
 
-const termsCheck = document.getElementById('terms');
-termsCheck.addEventListener("change", () => {
-    if (termsCheck.checked) {
-      
-      nextButtons[8].classList.add("disabled");
-      nextButtons[8].removeEventListener('click', handleNextClick);
-    } else {
-      
-      nextButtons[8].classList.remove("disabled");
-      nextButtons[8].addEventListener('click', () => {
-        if (termsCheck.checked) {
-          handleNextClick(8);
-        }
-      });
-    }
-  });
-
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
@@ -321,8 +304,8 @@ for (let i = 0; i < orientationRadioButtons.length; i++) {
     orientationRadioButtons[i].addEventListener("change", function() {
         selectedOrientation = orientationRadioButtons[i].value;
         capacity = getCapacityFromOrientation(selectedOrientation);
-        console.log("Selected Orientation: " + selectedOrientation);
-        console.log("Capacity: " + capacity);
+        //console.log("Selected Orientation: " + selectedOrientation);
+        //console.log("Capacity: " + capacity);
     });
 }
 function getCapacityFromOrientation(orientation) {
@@ -349,8 +332,8 @@ for (let i = 0; i < floorCountRadioButtons.length; i++) {
     floorCountRadioButtons[i].addEventListener("change", function() {
         selectedFloorCount = floorCountRadioButtons[i].value;
         arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
-        console.log("Selected Floor Count: " + selectedFloorCount);
-        console.log("Aerial Plaform Cost: " + arialPlatformCost);
+        //console.log("Selected Floor Count: " + selectedFloorCount);
+        //console.log("Aerial Plaform Cost: " + arialPlatformCost);
     });
 }
 function getarielPlatformCostfromFloorCount(floorcount) {
@@ -443,17 +426,17 @@ slider2.addEventListener('input', function (e) {
   if (usageCheckbox.checked) {
     updateSlider1AndYearlyUsage();
   }
-  console.log(e.target.value);
+  //console.log(e.target.value);
 });
 
 // Gov Discount
 for (let i = 0; i < YearRadioButtons.length; i++) {
   YearRadioButtons[i].addEventListener("change", function () {
     selectedYear = YearRadioButtons[i].value;
-    console.log("Selected Year: " + selectedYear);
+    //console.log("Selected Year: " + selectedYear);
     yearlyUsage = parseFloat(slider1.value); 
     const discount = getGovDiscount(selectedYear, yearlyUsage);
-    console.log("Discount: $" + discount); 
+    //console.log("Discount: $" + discount); 
   });
 }
 
@@ -487,7 +470,7 @@ for (let i = 0; i < roofTypeRadioButtons.length; i++) {
 };
 
 function getRoofType(selectedRoofType) {
-    console.log("Slected roof type: " + selectedRoofType);
+    //console.log("Slected roof type: " + selectedRoofType);
     return selectedRoofType;
 }
 
@@ -503,7 +486,7 @@ const roofShadeRadioButtons = document.getElementsByName("shade");
   };
 
   function getShadeType(selectedShade) {
-    console.log("Slected roof type: " + selectedShade);
+    //console.log("Slected roof type: " + selectedShade);
     return selectedShade;
   }
 
@@ -635,21 +618,6 @@ function renewBeCalculater() {
        }
       });
 
-/*
-    console.log("Yearly USage: " + yearlyUsage);
-    console.log("No of Pannels: " + finalNoOfPanels);
-    console.log("roofTypeSelection: " + roofTypeSelection);
-    console.log("Shaded or not: " + roofShadeSelection);
-    console.log("Roof type: " + selectedRoofType);
-    console.log("discount amout: " + discountAmount);
-    console.log("Panel Cost: " + panelCost);
-    console.log("Total pannel installation cost:" + installationCost);
-    console.log("Year electricity cost: " + yearlyElectricityCost);
-    console.log("Payback period: " + payBackPeriodFinal);
-    console.log("Savings in 25 Years: " + savingin25YearsFinal);
-    console.log(savings);
-    
- */  
 }
 
  const lasSubmit = document.getElementById('next9');
