@@ -1,7 +1,9 @@
+<!-- chartjs integration-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
+// Panel data is taken from the Google sheet
 const pannelData = [
     {
         "Amount of Solar Panels": 1,
@@ -160,13 +162,13 @@ const pannelData = [
     
 ];
 
-
+//Creating step count
 const stepCount = 10;
 const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
 const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
 const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
 
-// Define a named function for the next button click event
+// Next button click event
 function handleNextClick(stepIndex) {
   steps[stepIndex].classList.add('more_left');
   steps[stepIndex + 1].classList.remove('more_right');
@@ -189,7 +191,6 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
 // Step1 warning text
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
-
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
@@ -215,7 +216,6 @@ propertyRadioGroup.forEach(radio => {
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
 const otherRoofText = document.getElementById('other_roof-text');
-
 const flatRadio = document.getElementById('flat');
 const otherSlopeRadio = document.getElementById('other_slopes');
 
@@ -236,10 +236,10 @@ slopeRadioGroup.forEach(radio => {
     }
   });
 });
+
 // Step3 warning text
 const materiialRadioGroup = document.getElementsByName('material');
 const roofMaterialText = document.getElementById('roof_material-text');
-
 const caneRadio = document.getElementById('cane');
 
 materiialRadioGroup.forEach(radio => {
@@ -263,7 +263,6 @@ materiialRadioGroup.forEach(radio => {
 // Step6 warning text
 const floorCountRadioGroup = document.getElementsByName('floorcount');
 const floorCountText = document.getElementById('prop_count-text');
-
 const count2MoreRadio = document.getElementById('count2more');
 
 floorCountRadioGroup.forEach(radio => {
@@ -281,7 +280,6 @@ floorCountRadioGroup.forEach(radio => {
 // Step7 warning text
 const YearRadioButtons = document.getElementsByName("discount");
 const discountindicationText = document.getElementById('when_text');
-
 const before2014Radio = document.getElementById('before_2014');
 
 YearRadioButtons.forEach(radio => {
@@ -299,7 +297,7 @@ YearRadioButtons.forEach(radio => {
 
 // Orientation
 let selectedOrientation = "";
-let capacity = 0; // Initialize the capacity variable
+let capacity = 0; 
 
 const orientationRadioButtons = document.getElementsByName("orientation");
 for (let i = 0; i < orientationRadioButtons.length; i++) {
@@ -325,10 +323,9 @@ function getCapacityFromOrientation(orientation) {
     }
 }
 
-
 // Installation Additional cost
 let selectedFloorCount = "";
-let arialPlatformCost = 0; // Initialize the arialPlatformCost variable
+let arialPlatformCost = 0; 
 
 const floorCountRadioButtons = document.getElementsByName("floorcount");
 for (let i = 0; i < floorCountRadioButtons.length; i++) {
@@ -351,10 +348,6 @@ function getarielPlatformCostfromFloorCount(floorcount) {
             return 0; 
     }
 };
-
-
-
-
 
 let selectedYear = "";
 let yearlyUsage = 1000; 
@@ -399,7 +392,7 @@ function updateSlider1AndYearlyUsage() {
       yearlyUsage = 7000;
       break;
     default:
-      yearlyUsage = 1000; // Default value for other cases
+      yearlyUsage = 1000; 
   }
   slider1.value = yearlyUsage;
   slider1Output.textContent = yearlyUsage;
@@ -407,12 +400,10 @@ function updateSlider1AndYearlyUsage() {
 
 slider1.addEventListener('input', function (e) {
   slider1Output.textContent = e.target.value;
-  yearlyUsage = parseFloat(e.target.value); // Update yearlyUsage
+  yearlyUsage = parseFloat(e.target.value); 
   const discount = getGovDiscount(selectedYear, yearlyUsage);
-  console.log("Discount: $" + discount); // Log the discount value
+  //console.log("Discount: $" + discount); 
 });
-
-
 
 
 usageCheckbox.addEventListener('change', function() {
@@ -429,7 +420,6 @@ usageCheckbox.addEventListener('change', function() {
 });
 
 
-
 slider2.addEventListener('input', function (e) {
   slider2Output.textContent = e.target.value;
   membersOffamily = parseFloat(e.target.value);
@@ -439,17 +429,14 @@ slider2.addEventListener('input', function (e) {
   console.log(e.target.value);
 });
 
-
 // Gov Discount
-
-
 for (let i = 0; i < YearRadioButtons.length; i++) {
   YearRadioButtons[i].addEventListener("change", function () {
     selectedYear = YearRadioButtons[i].value;
     console.log("Selected Year: " + selectedYear);
-    yearlyUsage = parseFloat(slider1.value); // Update yearlyUsage
+    yearlyUsage = parseFloat(slider1.value); 
     const discount = getGovDiscount(selectedYear, yearlyUsage);
-    console.log("Discount: $" + discount); // Log the discount value
+    console.log("Discount: $" + discount); 
   });
 }
 
@@ -468,14 +455,12 @@ const yearUsageSubmit = document.getElementById('next8');
 yearUsageSubmit.addEventListener('click', function () {
   const yearlyUsage = parseFloat(slider1.value);
   const discount = getGovDiscount(selectedYear, yearlyUsage);
-  console.log("Discount: $" + discount); // Log the discount value
-  // Use 'discount' for any processing or submit actions
+  //console.log("Discount: $" + discount); 
 });
-
 
 //Getting Roof type
 let selectedRoofType = "";
-  const roofTypeRadioButtons = document.getElementsByName("slope");
+const roofTypeRadioButtons = document.getElementsByName("slope");
 
 for (let i = 0; i < roofTypeRadioButtons.length; i++) {
     roofTypeRadioButtons[i].addEventListener("change", function () {
@@ -490,8 +475,8 @@ function getRoofType(selectedRoofType) {
 }
 
 //Getting roof is shaded or not
-  let selectedShade = "";
-  const roofShadeRadioButtons = document.getElementsByName("shade");
+let selectedShade = "";
+const roofShadeRadioButtons = document.getElementsByName("shade");
 
   for (let i = 0; i < roofShadeRadioButtons.length; i++) {
     roofShadeRadioButtons[i].addEventListener("change", function () {
@@ -500,12 +485,9 @@ function getRoofType(selectedRoofType) {
     });
   };
 
-
   function getShadeType(selectedShade) {
     console.log("Slected roof type: " + selectedShade);
     return selectedShade;
-   
-
   }
 
 
@@ -513,16 +495,17 @@ function renewBeCalculater() {
   const capacity = getCapacityFromOrientation(selectedOrientation);
   const noOfPanels = yearlyUsage / (405 * capacity);
   const finalNoOfPanels = Math.round(noOfPanels);
+  const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
+  const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
+  const roofTypeSelection = selectedRoofType;
+  const roofShadeSelection = selectedShade;
+  let panelCost;
 
-    const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
-    const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
-    const roofTypeSelection = selectedRoofType;
-    const roofShadeSelection = selectedShade;
-    let panelCost;
-    // Find the index in pannelData for the given number of panels
-const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
+  // Find the index in pannelData for the given number of panels
+  const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
 
-if (panelIndex !== -1) {
+  if (panelIndex !== -1) {
+
   // Determine the roof type and shade selection
   const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
   const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
@@ -530,48 +513,45 @@ if (panelIndex !== -1) {
   // Get the panel cost based on the roof type and shade selection
   panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
 
-  console.log("Panel Cost:", panelCost);
-} else {
-  console.log("Panel data not found for the given number of panels.");
-}
+  //console.log("Panel Cost:", panelCost);
+   } else {
+  //console.log("Panel data not found for the given number of panels.");
+  }
 
 
-    // Pannel installation price
-    const instalationwithoutdiscount = panelCost + arialPlatformCost;
-    const installationCost = panelCost + arialPlatformCost - discountAmount;
+  // Pannel installation price
+  const instalationwithoutdiscount = panelCost + arialPlatformCost;
+  const installationCost = panelCost + arialPlatformCost - discountAmount;
+  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+   normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+  const govDiscountWrapper = document.getElementById('gov_discount');
+   govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+  const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
+   totalInstolllationWrapper.textContent = installationCost.toLocaleString();
 
-    const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
-    normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+  //Yearly electrycity price
+  const yearlyElectricityCost = yearlyUsage * 0.31; 
 
-    const govDiscountWrapper = document.getElementById('gov_discount');
-    govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
-
-    const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
-    totalInstolllationWrapper.textContent = installationCost.toLocaleString();
-
-    //Yearly electrycity price
-    const yearlyElectricityCost = yearlyUsage * 0.31; 
-
-    //Payback period
-    const payBackPeriod = installationCost/ yearlyElectricityCost;
-    const payBackPeriodFinal = Math.round(payBackPeriod);
-    const paybackWrapper = document.getElementById('payback_wrapper');
-    paybackWrapper.textContent = payBackPeriodFinal;
+  //Payback period
+  const payBackPeriod = installationCost/ yearlyElectricityCost;
+  const payBackPeriodFinal = Math.round(payBackPeriod);
+  const paybackWrapper = document.getElementById('payback_wrapper');
+  paybackWrapper.textContent = payBackPeriodFinal;
     
-    // Savings in 25 Years
-    const savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
-    const savingin25YearsFinal = Math.round(savingin25Years);
-    const savingIn25Years = document.getElementById('25year_saving');
+  // Savings in 25 Years
+  const savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
+  const savingin25YearsFinal = Math.round(savingin25Years);
+  const savingIn25Years = document.getElementById('25year_saving');
     savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
      
-    //Energy Savings in 25 Years
-    const energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
-    const energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
-    const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
-    energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
+  //Energy Savings in 25 Years
+  const energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
+  const energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
+  const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+  energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
     
     
-    const savings = [];
+  const savings = [];
 
     for (let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
@@ -579,7 +559,7 @@ if (panelIndex !== -1) {
         savings.push({ year: i, savingsovertime: savingsInYearFinal });
      }
      
-     const ctx = document.getElementById('savingsChart');
+  const ctx = document.getElementById('savingsChart');
      new Chart(ctx, {
       type: 'line',
       data: {
@@ -638,7 +618,7 @@ if (panelIndex !== -1) {
        }
       });
 
-
+/*
     console.log("Yearly USage: " + yearlyUsage);
     console.log("No of Pannels: " + finalNoOfPanels);
     console.log("roofTypeSelection: " + roofTypeSelection);
@@ -652,10 +632,10 @@ if (panelIndex !== -1) {
     console.log("Savings in 25 Years: " + savingin25YearsFinal);
     console.log(savings);
     
-   
+ */  
 }
 
-const lasSubmit = document.getElementById('next9');
-lasSubmit.addEventListener("click", renewBeCalculater);
+ const lasSubmit = document.getElementById('next9');
+  lasSubmit.addEventListener("click", renewBeCalculater);
 
 </script>
