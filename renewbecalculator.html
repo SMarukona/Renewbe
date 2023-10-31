@@ -217,19 +217,34 @@ const flatRoofText = document.getElementById('flat_roof-text');
 const otherRoofText = document.getElementById('other_roof-text');
 
 const flatRadio = document.getElementById('flat');
-const weakSlopeRadio = document.getElementById('weak_slope');
-const strongSlopeRadio = document.getElementById('strong_slope');
 const otherSlopeRadio = document.getElementById('other_slopes');
 
 slopeRadioGroup.forEach(radio => {
   radio.addEventListener("change", () => {
     if (otherSlopeRadio.checked) {
       otherRoofText.style.display = "block";
-      flatRoofText.style.display = "none";
+      nextButtons[1].classList.add("disabled");
+      nextButtons[1].removeEventListener('click', handleNextClick);
+    } else {
+      otherRoofText.style.display = "none";
+      nextButtons[1].classList.remove("disabled");
+      nextButtons[1].addEventListener('click', () => {
+        if (!otherSlopeRadio.checked) {
+          handleNextClick(1);
+        }
+      });
+    }
+  });
+});
+/*slopeRadioGroup.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (otherSlopeRadio.checked) {
+      otherRoofText.style.display = "block";
+      
       nextButtons[1].classList.add("disabled");
       nextButtons[1].removeEventListener('click', handleNextClick);
     } else if (flatRadio.checked) {
-      flatRoofText.style.display = "block";
+      
       otherRoofText.style.display = "none";
       nextButtons[1].classList.remove("disabled");
     } else {
@@ -243,7 +258,7 @@ slopeRadioGroup.forEach(radio => {
       });
     }
   });
-});
+});*/
 
 const materiialRadioGroup = document.getElementsByName('material');
 const roofMaterialText = document.getElementById('roof_material-text');
