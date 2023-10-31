@@ -598,7 +598,7 @@ if (panelIndex !== -1) {
         }]
        },
       options: {
-       
+       maintainAspectRatio: true,
        animation: false,
        plugins: { 
         legend: {
@@ -608,14 +608,9 @@ if (panelIndex !== -1) {
 
        scales: {
         x: {
-          
-          min: 1,
-          max: 25,
-          maxtickslimit: 5,
           ticks: {
               stepSize: 5
             },
-
           title:{
             display: true,
             text: 'Time(Years)',
@@ -626,8 +621,10 @@ if (panelIndex !== -1) {
            },
 
         y: {
+          ticks: {
+              stepSize: 10000
+            },
           position: 'right',
-          
           title:{
             display: true,
             text: 'Savings(€)',
