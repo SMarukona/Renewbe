@@ -604,17 +604,6 @@ function renewBeCalculater() {
           ticks: {
               stepSize: 10000
             },
-            grid: {
-          color: function(context) {
-            if (context.tick.value > 0) {
-              return Utils.CHART_COLORS.green;
-            } else if (context.tick.value < 0) {
-              return Utils.CHART_COLORS.red;
-            }
-
-            return '#000000';
-          },
-          },
           position: 'right',
           title:{
             display: true,
