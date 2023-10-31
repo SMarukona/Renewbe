@@ -177,7 +177,7 @@ function handleNextClick(stepIndex) {
 // Add click event listeners for next buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   nextButtons[stepIndex].addEventListener('click', () => {
-    if (!rentRadio.checked && !otherSlopeRadio.checked && !caneRadio.checked) {
+    if (!rentRadio.checked && !otherSlopeRadio.checked && !caneRadio.checked && termsCheck.checked) {
       handleNextClick(stepIndex);
     }
   });
@@ -211,6 +211,23 @@ propertyRadioGroup.forEach(radio => {
     }
   });
 });
+
+const termsCheck = document.getElementById('terms');
+termsCheck.addEventListener("change", () => {
+    if (!termsCheck.checked) {
+      
+      nextButtons[8].classList.add("disabled");
+      nextButtons[8].removeEventListener('click', handleNextClick);
+    } else {
+      
+      nextButtons[8].classList.remove("disabled");
+      nextButtons[8].addEventListener('click', () => {
+        if (termsCheck.checked) {
+          handleNextClick(8);
+        }
+      });
+    }
+  });
 
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
