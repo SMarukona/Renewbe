@@ -211,10 +211,10 @@ propertyRadioGroup.forEach(radio => {
     }
   });
 });
-/*
+
 const termsCheck = document.getElementById('terms');
 termsCheck.addEventListener("change", () => {
-    if (!termsCheck.checked) {
+    if (termsCheck.checked) {
       
       nextButtons[8].classList.add("disabled");
       nextButtons[8].removeEventListener('click', handleNextClick);
@@ -228,7 +228,7 @@ termsCheck.addEventListener("change", () => {
       });
     }
   });
-*/
+
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
