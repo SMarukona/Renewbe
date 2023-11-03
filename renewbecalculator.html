@@ -245,35 +245,10 @@ const floorCountRadioGroup = document.getElementsByName('floorcount');
 const floorCountText = document.getElementById('prop_count-text');
 const count2MoreRadio = document.getElementById('count2more');
 
-floorCountRadioGroup.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (count2MoreRadio.checked) {
-      floorCountText.style.display = "block";
-      
-      
-    } else {
-      floorCountText.style.display = "none";
-    }
-  });
-});
-
 // Step7 warning text
 const YearRadioButtons = document.getElementsByName("discount");
 const discountindicationText = document.getElementById('when_text');
 const before2014Radio = document.getElementById('before_2014');
-
-YearRadioButtons.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (before2014Radio.checked) {
-      discountindicationText.style.display = "block";
-      
-      
-    } else {
-      discountindicationText.style.display = "none";
-    }
-  });
-});
-
 
 // Orientation
 let selectedOrientation = "";
