@@ -177,7 +177,7 @@ function handleNextClick(stepIndex) {
 // Add click event listeners for next buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   nextButtons[stepIndex].addEventListener('click', () => {
-    if (!rentRadio.checked && !otherSlopeRadio.checked && !caneRadio.checked) {
+    if (!rentRadio.checked && !caneRadio.checked) {
       handleNextClick(stepIndex);
     }
   });
@@ -215,27 +215,7 @@ propertyRadioGroup.forEach(radio => {
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
-const otherRoofText = document.getElementById('other_roof-text');
 const flatRadio = document.getElementById('flat');
-const otherSlopeRadio = document.getElementById('other_slopes');
-
-slopeRadioGroup.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (otherSlopeRadio.checked) {
-      otherRoofText.style.display = "block";
-      nextButtons[1].classList.add("disabled");
-      nextButtons[1].removeEventListener('click', handleNextClick);
-    } else {
-      otherRoofText.style.display = "none";
-      nextButtons[1].classList.remove("disabled");
-      nextButtons[1].addEventListener('click', () => {
-        if (!otherSlopeRadio.checked) {
-          handleNextClick(1);
-        }
-      });
-    }
-  });
-});
 
 // Step3 warning text
 const materiialRadioGroup = document.getElementsByName('material');
