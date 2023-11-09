@@ -572,10 +572,16 @@ function renewBeCalculater() {
         }
        }
       });
-
+      var formData = {
+    selectedOrientation: selectedOrientation,
+                
+            }; 
+  sessionStorage.setItem("formData", JSON.stringify(formData));
+  
 }
 
  const lasSubmit = document.getElementById('next9');
   lasSubmit.addEventListener("click", renewBeCalculater);
+
 
 </script>
