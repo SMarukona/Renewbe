@@ -506,73 +506,9 @@ function renewBeCalculater() {
   energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
     
     
-  const savings = [];
-
-    for (let i = 1; i <= 25; i++) {
-     const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
-     const savingsInYearFinal = Math.round(savingsInYear);
-        savings.push({ year: i, savingsovertime: savingsInYearFinal });
-     }
-     
-  const ctx = document.getElementById('savingsChart');
-     new Chart(ctx, {
-      type: 'line',
-      data: {
-      labels: savings.map(row => row.year),
-      datasets: [{
-        data: savings.map(row => row.savingsovertime),
-        borderWidth: 1,
-        borderColor: '#004f56',
-        backgroundColor: '#e1f0ed',
-        tension: 0.4,
-        fill:{
-           target: 'origin',
-           below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0)'
-        }
-        }]
-       },
-      options: {
-       maintainAspectRatio: false,
-       animation: false,
-       plugins: { 
-        legend: {
-         display: false
-         },
-       },
-
-       scales: {
-        x: {
-          ticks: {
-              stepSize: 5
-            },
-          title:{
-            display: true,
-            text: 'Tijd (jaren)',
-            font: {
-              weight: 'bold'
-            }
-          }
-           },
-
-        y: {
-          ticks: {
-              stepSize: 10000
-            },
-          position: 'right',
-          title:{
-            display: true,
-            text: 'Besparingen(€)',
-            font: {
-              weight: 'bold'
-            }
-           }
-          }
-
-        }
-       }
-      });
+  
       var formData = {
+        payBackPeriod: payBackPeriod,
         payBackPeriodFinal: payBackPeriodFinal,
         selectedOrientation: selectedOrientation,
         savingin25YearsFinal: savingin25YearsFinal,
