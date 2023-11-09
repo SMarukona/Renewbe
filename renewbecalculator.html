@@ -473,19 +473,9 @@ function renewBeCalculater() {
   //console.log("Panel data not found for the given number of panels.");
   }
 
-
   // Pannel installation price
   const instalationwithoutdiscount = panelCost + arialPlatformCost;
   const installationCost = panelCost + arialPlatformCost - discountAmount;
-
-  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
-   normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
-
-  const govDiscountWrapper = document.getElementById('gov_discount');
-   govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
-
-  const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
-   totalInstolllationWrapper.textContent = installationCost.toLocaleString();
 
   //Yearly electrycity price
   const yearlyElectricityCost = yearlyUsage * 0.31; 
@@ -493,22 +483,14 @@ function renewBeCalculater() {
   //Payback period
   const payBackPeriod = installationCost/ yearlyElectricityCost;
   const payBackPeriodFinal = Math.round(payBackPeriod);
-  const paybackWrapper = document.getElementById('payback_wrapper');
-  paybackWrapper.textContent = payBackPeriodFinal;
-    
+  
   // Savings in 25 Years
   const savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   const savingin25YearsFinal = Math.round(savingin25Years);
-  const savingIn25Years = document.getElementById('25year_saving');
-    savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
-     
+  
   //Energy Savings in 25 Years
   const energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   const energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
-  const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
-  energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
-    
-    
   
       var formData = {
         payBackPeriod: payBackPeriod,
@@ -520,10 +502,7 @@ function renewBeCalculater() {
         instalationwithoutdiscount: instalationwithoutdiscount,
         discountAmount: discountAmount,
         installationCost: installationCost,
-
-
-                
-            }; 
+        }; 
   sessionStorage.setItem("formData", JSON.stringify(formData));
 
 }
