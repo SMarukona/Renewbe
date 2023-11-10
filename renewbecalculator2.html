@@ -239,7 +239,7 @@ slopeRadioGroup.forEach(radio => {
 });
 
 
-/*
+
 // Step 3
 const materiialRadioGroup = document.getElementsByName('material');
 const roofMaterialText = document.getElementById('roof_material-text');
@@ -248,7 +248,7 @@ const slatedRadio = document.getElementById('slated');
 const tilesRadio = document.getElementById('tiles');
 const zincRadio = document.getElementById('zinc');
 
-function updateNextButtonState1() {
+function updateNextButtonState2() {
   if (caneRadio.checked) {
     nextButtons[2].classList.add('disabled');
     roofMaterialText.style.display = 'block';
@@ -261,10 +261,10 @@ function updateNextButtonState1() {
 }
 
 materiialRadioGroup.forEach(radio => {
-  radio.addEventListener("change", updateNextButtonState1);
+  radio.addEventListener("change", updateNextButtonState2);
 });
-*/
-/*
+
+
 
 /*
 materiialRadioGroup.forEach(radio => {
@@ -287,8 +287,9 @@ materiialRadioGroup.forEach(radio => {
 
 
 
-/*
+
 // Step 4
+const orientationRadioButtons = document.getElementsByName("orientation");
 const northRadio = document.getElementById('north');
 const eastRadio = document.getElementById('east');
 const westRadio = document.getElementById('west');
@@ -306,8 +307,8 @@ function updateNextButtonState3() {
 
 orientationRadioButtons.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState3);
-});*/
-/*
+});
+
 // Step 5
 const roofShadeRadioButtons = document.getElementsByName("shade");
 const yesRadio = document.getElementById('yes');
@@ -376,7 +377,6 @@ YearRadioButtons.forEach(radio => {
 let selectedOrientation = "";
 let capacity = 0; 
 
-const orientationRadioButtons = document.getElementsByName("orientation");
 for (let i = 0; i < orientationRadioButtons.length; i++) {
     orientationRadioButtons[i].addEventListener("change", function() {
         selectedOrientation = orientationRadioButtons[i].value;
