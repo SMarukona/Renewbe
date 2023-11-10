@@ -177,9 +177,7 @@ function handleNextClick(stepIndex) {
 // Add click event listeners for next buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   nextButtons[stepIndex].addEventListener('click', () => {
-    
-      handleNextClick(stepIndex);
-    
+    handleNextClick(stepIndex);
   });
 
   backs[stepIndex].addEventListener('click', () => {
@@ -198,9 +196,11 @@ const nextButtonStep1 = nextButtons[0];
 
 function handlePropertyRadioClick() {
   if (rentRadio.checked) {
+    // Default behavior
     nextButtonStep1.removeEventListener('click', handleNextClick);
     nextButtonStep1.classList.add('disabled');
   } else if (ownerRadio.checked) {
+    // Custom behavior for ownerRadio
     nextButtonStep1.addEventListener('click', () => handleNextClick(0));
     nextButtonStep1.classList.remove('disabled');
   }
@@ -212,9 +212,9 @@ propertyRadioGroup.forEach(radio => {
 });
 
 // Initial setup for Step 1
+// Default behavior for Step 1
 nextButtonStep1.removeEventListener('click', handleNextClick);
 nextButtonStep1.classList.add('disabled');
-
 
 // Step 2
 // Step2 warning text
@@ -226,6 +226,7 @@ const nextButtonStep2 = nextButtons[1];
 
 function handleSlopeRadioClick() {
   if (flatRadio.checked || tiltedRadio.checked) {
+    // Custom behavior for flatRadio and tiltedRadio
     nextButtonStep2.addEventListener('click', () => handleNextClick(1));
     nextButtonStep2.classList.remove('disabled');
   }
@@ -235,6 +236,7 @@ function handleSlopeRadioClick() {
 slopeRadioGroup.forEach(radio => {
   radio.addEventListener('click', handleSlopeRadioClick);
 });
+
 
 
 
