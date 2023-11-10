@@ -196,33 +196,33 @@ const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
-function enableNextButton() {
+function enableNextButton0() {
   nextButtons[0].classList.remove('disabled');
   nextButtons[0].addEventListener('click', () => handleNextClick(0));
 }
 
-function disableNextButton() {
+function disableNextButton0() {
   nextButtons[0].classList.add('disabled');
   nextButtons[0].removeEventListener('click', () => handleNextClick(0));
 }
 
 
 
-function updateNextButtonState() {
+function updateNextButtonState0() {
   if (rentRadio.checked) {
     nextButtons[0].classList.add('disabled');
     warningTextStep1.style.display = 'block';
-    disableNextButton();
+    disableNextButton0();
   } else if (ownerRadio.checked) {
-    nextButtons[0].classList.remove('none');
+    nextButtons[0].classList.remove('disabled');
     warningTextStep1.style.display = 'none';
-    enableNextButton();
+    enableNextButton0();
   }
   
 }
 
 propertyRadioGroup.forEach(radio => {
-  radio.addEventListener("change", updateNextButtonState);
+  radio.addEventListener("change", updateNextButtonState0);
 });
 
 
@@ -233,7 +233,34 @@ const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
 const flatRadio = document.getElementById('flat');
 const tiltedRadio = document.getElementById('tilted');
-const nextButtonStep2 = nextButtons[1];
+
+function enableNextButton1() {
+  nextButtons[1].classList.remove('disabled');
+  nextButtons[1].addEventListener('click', () => handleNextClick(1));
+}
+
+function disableNextButton1() {
+  nextButtons[1].classList.add('disabled');
+  nextButtons[1].removeEventListener('click', () => handleNextClick(1));
+}
+
+function updateNextButtonState1() {
+  if (flatRadio.checked) {
+    nextButtons[1].classList.add('disabled');
+    
+    enableNextButton1();
+  } else if (tiltedRadio.checked) {
+    nextButtons[1].classList.remove('none');
+    
+    enableNextButton1();
+  }
+  
+}
+
+slopeRadioGroup.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState1);
+});
+
 
 // Step3 warning text
 const materiialRadioGroup = document.getElementsByName('material');
