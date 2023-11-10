@@ -190,6 +190,12 @@ function handleNextClick(stepIndex) {
   steps[stepIndex + 1].classList.remove('more_right');
 }
 
+// Step1 warning text
+const propertyRadioGroup = document.getElementsByName('property');
+const warningTextStep1 = document.getElementById('w_step1');
+const rentRadio = document.getElementById('rent');
+const ownerRadio = document.getElementById('owner-2');
+
 function enableNextButton() {
   nextButtons[0].classList.remove('disabled');
   nextButtons[0].addEventListener('click', () => handleNextClick(0));
@@ -200,11 +206,7 @@ function disableNextButton() {
   nextButtons[0].removeEventListener('click', () => handleNextClick(0));
 }
 
-// Step1 warning text
-const propertyRadioGroup = document.getElementsByName('property');
-const warningTextStep1 = document.getElementById('w_step1');
-const rentRadio = document.getElementById('rent');
-const ownerRadio = document.getElementById('owner-2');
+
 
 function updateNextButtonState() {
   if (rentRadio.checked) {
