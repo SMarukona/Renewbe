@@ -286,34 +286,8 @@ materiialRadioGroup.forEach(radio => {
 });*/
 
 
-// Orientation
-let selectedOrientation = "";
-let capacity = 0; 
 
-const orientationRadioButtons = document.getElementsByName("orientation");
-for (let i = 0; i < orientationRadioButtons.length; i++) {
-    orientationRadioButtons[i].addEventListener("change", function() {
-        selectedOrientation = orientationRadioButtons[i].value;
-        capacity = getCapacityFromOrientation(selectedOrientation);
-        //console.log("Selected Orientation: " + selectedOrientation);
-        //console.log("Capacity: " + capacity);
-    });
-}
-function getCapacityFromOrientation(orientation) {
-    switch (orientation) {
-        case "north":
-            return 0.6;
-        case "south":
-            return 0.95;
-        case "east":
-            return 0.8;
-        case "west":
-            return 0.8;
-        default:
-            return 0; 
-    }
-}
-
+/*
 // Step 4
 const northRadio = document.getElementById('north');
 const eastRadio = document.getElementById('east');
@@ -332,7 +306,7 @@ function updateNextButtonState3() {
 
 orientationRadioButtons.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState3);
-});
+});*/
 /*
 // Step 5
 const roofShadeRadioButtons = document.getElementsByName("shade");
@@ -397,6 +371,36 @@ YearRadioButtons.forEach(radio => {
 });
 
 */
+
+// Orientation
+let selectedOrientation = "";
+let capacity = 0; 
+
+const orientationRadioButtons = document.getElementsByName("orientation");
+for (let i = 0; i < orientationRadioButtons.length; i++) {
+    orientationRadioButtons[i].addEventListener("change", function() {
+        selectedOrientation = orientationRadioButtons[i].value;
+        capacity = getCapacityFromOrientation(selectedOrientation);
+        //console.log("Selected Orientation: " + selectedOrientation);
+        //console.log("Capacity: " + capacity);
+    });
+}
+function getCapacityFromOrientation(orientation) {
+    switch (orientation) {
+        case "north":
+            return 0.6;
+        case "south":
+            return 0.95;
+        case "east":
+            return 0.8;
+        case "west":
+            return 0.8;
+        default:
+            return 0; 
+    }
+}
+
+
 // Installation Additional cost
 let selectedFloorCount = "";
 let arialPlatformCost = 0; 
