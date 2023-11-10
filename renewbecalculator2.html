@@ -197,6 +197,7 @@ const nextButtonStep1 = nextButtons[0];
 function handlePropertyRadioClick() {
   if (rentRadio.checked) {
     // Default behavior
+    warningTextStep1.style.display = "block";
     nextButtonStep1.removeEventListener('click', handleNextClick);
     nextButtonStep1.classList.add('disabled');
   } else if (ownerRadio.checked) {
