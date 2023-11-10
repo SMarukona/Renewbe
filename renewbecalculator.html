@@ -200,9 +200,12 @@ function handlePropertyRadioClick() {
   if (rentRadio.checked) {
     nextButtonStep1.removeEventListener('click', handleNextClick);
     nextButtonStep1.classList.add('disabled');
+    warningTextStep1.style.display = "block";
+    
   } else if (ownerRadio.checked) {
     nextButtonStep1.addEventListener('click', () => handleNextClick(0));
     nextButtonStep1.classList.remove('disabled');
+    warningTextStep1.style.display = "none";
   }
 }
 
