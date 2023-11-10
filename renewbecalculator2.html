@@ -354,7 +354,7 @@ floorCountRadioGroup.forEach(radio => {
 
 
 // Step 7
-const YearRadioButtons = document.getElementsByName("discount");
+const yearRadioButtons = document.getElementsByName("discount");
 const discountindicationText = document.getElementById('when_text');
 const before2014Radio = document.getElementById('before_2014');
 const after2014Radio = document.getElementById('after_2014');
@@ -369,7 +369,7 @@ function updateNextButtonState6() {
   }
 }
 
-YearRadioButtons.forEach(radio => {
+yearRadioButtons.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState6);
 });
 
@@ -510,9 +510,9 @@ slider2.addEventListener('input', function (e) {
 });
 
 // Gov Discount
-for (let i = 0; i < YearRadioButtons.length; i++) {
-  YearRadioButtons[i].addEventListener("change", function () {
-    selectedYear = YearRadioButtons[i].value;
+for (let i = 0; i < yearRadioButtons.length; i++) {
+  yearRadioButtons[i].addEventListener("change", function () {
+    selectedYear = yearRadioButtons[i].value;
     //console.log("Selected Year: " + selectedYear);
     yearlyUsage = parseFloat(slider1.value); 
     const discount = getGovDiscount(selectedYear, yearlyUsage);
