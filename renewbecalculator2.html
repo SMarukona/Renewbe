@@ -227,6 +227,7 @@ function updateNextButtonState1() {
   if (flatRadio.checked || tiltedRadio.checked) {
     nextButtons[1].classList.remove('disabled');
     enableNextButton(1);
+    console.log("checked");
   } else {
     nextButtons[1].classList.add('disabled');
     disableNextButton(1);
