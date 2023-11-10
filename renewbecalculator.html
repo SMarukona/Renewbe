@@ -284,7 +284,7 @@ propertyRadioGroup.forEach(radio => {
       warningTextStep1.style.display = "none";
       nextButtons[0].classList.remove("disabled");
       nextButtons[0].addEventListener('click', () => {
-        if (!rentRadio.checked) {
+        if (rentRadio.checked) {
           handleNextClick(0);
         }
       });
