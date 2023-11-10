@@ -191,17 +191,26 @@ const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
+function updateNextButtonState() {
+  if (rentRadio.checked) {
+    nextButtons[0].classList.add('disabled');
+    nextButtons[0].removeEventListener('click', handleNextClick);
+  } else if (ownerRadio.checked) {
+    nextButtons[0].classList.remove('disabled');
+    nextButtons[0].addEventListener('click', handleNextClick);
+  }else{
+    nextButtons[0].classList.add('disabled');
+    nextButtons[0].removeEventListener('click', handleNextClick);
+  }
+}
+
+// Add initial state based on default checked radio button
+updateNextButtonState();
+
 propertyRadioGroup.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (rentRadio.checked) {
-      nextButtons[0].classList.add('disabled');
-      nextButtons[0].removeEventListener('click', handleNextClick(0));
-    }else if(ownerRadio.checked){
-      nextButtons[0].classList.remove('disabled');
-      nextButtons[0].addEventListener('click', handleNextClick(0));
-    }
+  radio.addEventListener("change", updateNextButtonState);
 });
-  });
+
 
 
 // Step 2
