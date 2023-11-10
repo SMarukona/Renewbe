@@ -162,7 +162,7 @@ const pannelData = [
     
 ];
 
-//Creating step count
+// Creating step count
 const stepCount = 9;
 const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
 const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
@@ -176,7 +176,6 @@ function handleNextClick(stepIndex) {
 
 // Add click event listeners for back buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
-
   nextButtons[stepIndex].classList.add('disabled');
 
   backs[stepIndex].addEventListener('click', () => {
@@ -185,81 +184,59 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   });
 }
 
-function handleNextClick(stepIndex) {
-  steps[stepIndex].classList.add('more_left');
-  steps[stepIndex + 1].classList.remove('more_right');
+// Common function to enable/disable next button
+function enableNextButton(index) {
+  nextButtons[index].classList.remove('disabled');
+  nextButtons[index].addEventListener('click', () => handleNextClick(index));
 }
 
-// Step1 warning text
+function disableNextButton(index) {
+  nextButtons[index].classList.add('disabled');
+  nextButtons[index].removeEventListener('click', () => handleNextClick(index));
+}
+
+// Step 1
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
-function enableNextButton0() {
-  nextButtons[0].classList.remove('disabled');
-  nextButtons[0].addEventListener('click', () => handleNextClick(0));
-}
-
-function disableNextButton0() {
-  nextButtons[0].classList.add('disabled');
-  nextButtons[0].removeEventListener('click', () => handleNextClick(0));
-}
-
-
-
 function updateNextButtonState0() {
   if (rentRadio.checked) {
     nextButtons[0].classList.add('disabled');
     warningTextStep1.style.display = 'block';
-    disableNextButton0();
+    disableNextButton(0);
   } else if (ownerRadio.checked) {
     nextButtons[0].classList.remove('disabled');
     warningTextStep1.style.display = 'none';
-    enableNextButton0();
+    enableNextButton(0);
   }
-  
 }
 
 propertyRadioGroup.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState0);
 });
 
-
-
 // Step 2
-// Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
 const flatRadio = document.getElementById('flat');
 const tiltedRadio = document.getElementById('tilted');
 
-function enableNextButton1() {
-  nextButtons[1].classList.remove('disabled');
-  nextButtons[1].addEventListener('click', () => handleNextClick(1));
-}
-
-function disableNextButton1() {
-  nextButtons[1].classList.add('disabled');
-  nextButtons[1].removeEventListener('click', () => handleNextClick(1));
-}
-
 function updateNextButtonState1() {
-  if (flatRadio.checked) {
+  if (flatRadio.checked || tiltedRadio.checked) {
+    nextButtons[1].classList.remove('disabled');
+    enableNextButton(1);
+  } else {
     nextButtons[1].classList.add('disabled');
-    
-    enableNextButton1();
-  } else if (tiltedRadio.checked) {
-    nextButtons[1].classList.remove('none');
-    
-    enableNextButton1();
+    disableNextButton(1);
   }
-  
 }
 
 slopeRadioGroup.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState1);
 });
+
 
 
 // Step3 warning text
