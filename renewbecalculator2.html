@@ -1,0 +1,541 @@
+<!-- chartjs integration-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+// Panel data is taken from the Google sheet
+const pannelData = [
+    {
+        "Amount of Solar Panels": 1,
+        "Wattage": 410,
+        "Real Wattage": 328,
+        "Tilted": { "Micro (x4)": 0, "String": 0 },
+        "Flat": { "Micro (x4)": 0, "String": 0 }
+    },
+    {
+        "Amount of Solar Panels": 2,
+        "Wattage": 820,
+        "Real Wattage": 656,
+        "Tilted": { "Micro (x4)": 2366, "String": 1831 },
+        "Flat": { "Micro (x4)": 2446, "String": 1853 }
+    },
+    {
+        "Amount of Solar Panels": 3,
+        "Wattage": 1230,
+        "Real Wattage": 984,
+        "Tilted": { "Micro (x4)": 2881, "String": 2292 },
+        "Flat": { "Micro (x4)": 2987, "String": 2327 }
+    },
+    {
+        "Amount of Solar Panels": 4,
+        "Wattage": 1640,
+        "Real Wattage": 1312,
+        "Tilted": { "Micro (x4)": 3482, "String": 2753 },
+        "Flat": { "Micro (x4)": 3528, "String": 2797 }
+    },
+    {
+        "Amount of Solar Panels": 5,
+        "Wattage": 2050,
+        "Real Wattage": 1640,
+        "Tilted": { "Micro (x4)": 4011, "String": 3214 },
+        "Flat": { "Micro (x4)": 4067, "String": 3269 }
+    },
+    {
+        "Amount of Solar Panels": 6,
+        "Wattage": 2460,
+        "Real Wattage": 1968,
+        "Tilted": { "Micro (x4)": 4492, "String": 3626 },
+        "Flat": { "Micro (x4)": 4561, "String": 3694 }
+    },
+    {
+        "Amount of Solar Panels": 7,
+        "Wattage": 2870,
+        "Real Wattage": 2296,
+        "Tilted": { "Micro (x4)": 4976, "String": 4039 },
+        "Flat": { "Micro (x4)": 5055, "String": 4118 }
+    },
+    {
+        "Amount of Solar Panels": 8,
+        "Wattage": 3280,
+        "Real Wattage": 2624,
+        "Tilted": { "Micro (x4)": 5457, "String": 4452 },
+        "Flat": { "Micro (x4)": 5548, "String": 4542 }
+    },
+    {
+        "Amount of Solar Panels": 9,
+        "Wattage": 3690,
+        "Real Wattage": 2952,
+        "Tilted": { "Micro (x4)": 5907, "String": 4864 },
+        "Flat": { "Micro (x4)": 6041, "String": 4966 }
+    },
+    {
+        "Amount of Solar Panels": 10,
+        "Wattage": 4100,
+        "Real Wattage": 3280,
+        "Tilted": { "Micro (x4)": 6421, "String": 5278 },
+        "Flat": { "Micro (x4)": 6536, "String": 5390 }
+    },
+    {
+        "Amount of Solar Panels": 11,
+        "Wattage": 4510,
+        "Real Wattage": 3608,
+        "Tilted": { "Micro (x4)": 6904, "String": 5690 },
+        "Flat": { "Micro (x4)": 7029, "String": 5715 }
+    },
+    {
+        "Amount of Solar Panels": 12,
+        "Wattage": 4920,
+        "Real Wattage": 3936,
+        "Tilted": { "Micro (x4)": 7385, "String": 6102 },
+        "Flat": { "Micro (x4)": 7522, "String": 6239 }
+    },
+    {
+        "Amount of Solar Panels": 13,
+        "Wattage": 5330,
+        "Real Wattage": 4264,
+        "Tilted": { "Micro (x4)": 7868, "String": 6516 },
+        "Flat": { "Micro (x4)": 8015, "String": 6664 }
+    },
+    {
+        "Amount of Solar Panels": 14,
+        "Wattage": 5740,
+        "Real Wattage": 4592,
+        "Tilted": { "Micro (x4)": 8350, "String": 6928 },
+        "Flat": { "Micro (x4)": 8510, "String": 7087 }
+    },
+    {
+        "Amount of Solar Panels": 15,
+        "Wattage": 6150,
+        "Real Wattage": 4920,
+        "Tilted": { "Micro (x4)": 8806, "String": 7318 },
+        "Flat": { "Micro (x4)": 8976, "String": 7488 }
+    },
+    {
+        "Amount of Solar Panels": 16,
+        "Wattage": 6560,
+        "Real Wattage": 5248,
+        "Tilted": { "Micro (x4)": 9288, "String": 7730 },
+        "Flat": { "Micro (x4)": 9468, "String": 7911 }
+    },
+    {
+        "Amount of Solar Panels": 17,
+        "Wattage": 6970,
+        "Real Wattage": 5576,
+        "Tilted": { "Micro (x4)": 9768, "String": 8141},
+        "Flat": { "Micro (x4)": 9959, "String": 8334}
+    },
+    {
+        "Amount of Solar Panels": 18,
+        "Wattage": 7380,
+        "Real Wattage": 5904,
+        "Tilted": { "Micro (x4)": 10249, "String": 10249 },
+        "Flat": { "Micro (x4)": 10452, "String": 8757 }
+    },
+    {
+        "Amount of Solar Panels": 19,
+        "Wattage": 7790,
+        "Real Wattage": 6232,
+        "Tilted": { "Micro (x4)": 10729, "String": 8963 },
+        "Flat": { "Micro (x4)": 10943, "String": 9179 }
+    },
+    {
+        "Amount of Solar Panels": 20,
+        "Wattage": 8200,
+        "Real Wattage": 6560,
+        "Tilted": { "Micro (x4)": 11211, "String": 9376 },
+        "Flat": { "Micro (x4)": 11453, "String": 9601 }
+    },
+    {
+        "Amount of Solar Panels": 21,
+        "Wattage": 8610,
+        "Real Wattage": 6888,
+        "Tilted": { "Micro (x4)": 11691, "String": 9787 },
+        "Flat": { "Micro (x4)": 11927, "String": 10024 }
+    },
+    {
+        "Amount of Solar Panels": 22,
+        "Wattage": 9020,
+        "Real Wattage": 7216,
+        "Tilted": { "Micro (x4)": 12139, "String": 10142 },
+        "Flat": { "Micro (x4)": 12387, "String": 10392 }
+    }
+    
+];
+
+//Creating step count
+const stepCount = 9;
+const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
+const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
+const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
+
+// Next button click event
+function handleNextClick(stepIndex) {
+  steps[stepIndex].classList.add('more_left');
+  steps[stepIndex + 1].classList.remove('more_right');
+}
+
+// Add click event listeners for next buttons
+for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
+  nextButtons[stepIndex].addEventListener('click', () => {
+    
+      handleNextClick(stepIndex);
+    
+  });
+
+  backs[stepIndex].addEventListener('click', () => {
+    steps[stepIndex].classList.remove('more_left');
+    steps[stepIndex + 1].classList.add('more_right');
+  });
+}
+
+// Step 1
+// Step1 warning text
+const propertyRadioGroup = document.getElementsByName('property');
+const warningTextStep1 = document.getElementById('w_step1');
+const rentRadio = document.getElementById('rent');
+const ownerRadio = document.getElementById('owner-2');
+const nextButtonStep1 = nextButtons[0];
+
+function handlePropertyRadioClick() {
+  if (rentRadio.checked) {
+    nextButtonStep1.removeEventListener('click', handleNextClick);
+    nextButtonStep1.classList.add('disabled');
+    warningTextStep1.style.display = "block";
+    
+  } else if (ownerRadio.checked) {
+    nextButtonStep1.addEventListener('click', () => handleNextClick(0));
+    nextButtonStep1.classList.remove('disabled');
+    warningTextStep1.style.display = "none";
+  }
+}
+
+// Add click event listeners for property radio buttons
+propertyRadioGroup.forEach(radio => {
+  radio.addEventListener('click', handlePropertyRadioClick);
+});
+
+// Initial setup for Step 1
+nextButtonStep1.removeEventListener('click', handleNextClick);
+nextButtonStep1.classList.add('disabled');
+
+// Step 2
+// Step2 warning text
+const slopeRadioGroup = document.getElementsByName('slope');
+const flatRoofText = document.getElementById('flat_roof-text');
+const flatRadio = document.getElementById('flat');
+const tiltedRadio = document.getElementById('tilted');
+const nextButtonStep2 = nextButtons[1];
+
+function handleSlopeRadioClick() {
+  if (flatRadio.checked || tiltedRadio.checked) {
+    nextButtonStep2.addEventListener('click', () => handleNextClick(1));
+    nextButtonStep2.classList.remove('disabled');
+  }
+}
+
+// Add click event listeners for slope radio buttons
+slopeRadioGroup.forEach(radio => {
+  radio.addEventListener('click', handleSlopeRadioClick);
+});
+
+// Initial setup for Step 2
+nextButtonStep2.removeEventListener('click', handleNextClick);
+nextButtonStep2.classList.add('disabled');
+
+
+
+// Step3 warning text
+const materiialRadioGroup = document.getElementsByName('material');
+const roofMaterialText = document.getElementById('roof_material-text');
+const caneRadio = document.getElementById('cane');
+
+materiialRadioGroup.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (caneRadio.checked) {
+      roofMaterialText.style.display = "block";
+      nextButtons[2].classList.add("disabled");
+      nextButtons[2].removeEventListener('click', handleNextClick);
+    } else {
+      roofMaterialText.style.display = "none";
+      nextButtons[2].classList.remove("disabled");
+      nextButtons[2].addEventListener('click', () => {
+        if (!caneRadio.checked) {
+          handleNextClick(2);
+        }
+      });
+    }
+  });
+});
+
+// Step6 warning text
+const floorCountRadioGroup = document.getElementsByName('floorcount');
+const floorCountText = document.getElementById('prop_count-text');
+const count2MoreRadio = document.getElementById('count2more');
+
+// Step7 warning text
+const YearRadioButtons = document.getElementsByName("discount");
+const discountindicationText = document.getElementById('when_text');
+const before2014Radio = document.getElementById('before_2014');
+
+// Orientation
+let selectedOrientation = "";
+let capacity = 0; 
+
+const orientationRadioButtons = document.getElementsByName("orientation");
+for (let i = 0; i < orientationRadioButtons.length; i++) {
+    orientationRadioButtons[i].addEventListener("change", function() {
+        selectedOrientation = orientationRadioButtons[i].value;
+        capacity = getCapacityFromOrientation(selectedOrientation);
+        //console.log("Selected Orientation: " + selectedOrientation);
+        //console.log("Capacity: " + capacity);
+    });
+}
+function getCapacityFromOrientation(orientation) {
+    switch (orientation) {
+        case "north":
+            return 0.6;
+        case "south":
+            return 0.95;
+        case "east":
+            return 0.8;
+        case "west":
+            return 0.8;
+        default:
+            return 0; 
+    }
+}
+
+// Installation Additional cost
+let selectedFloorCount = "";
+let arialPlatformCost = 0; 
+
+const floorCountRadioButtons = document.getElementsByName("floorcount");
+for (let i = 0; i < floorCountRadioButtons.length; i++) {
+    floorCountRadioButtons[i].addEventListener("change", function() {
+        selectedFloorCount = floorCountRadioButtons[i].value;
+        arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
+        //console.log("Selected Floor Count: " + selectedFloorCount);
+        //console.log("Aerial Plaform Cost: " + arialPlatformCost);
+    });
+}
+function getarielPlatformCostfromFloorCount(floorcount) {
+    switch (floorcount) {
+        case "count1":
+            return 0;
+        case "count2":
+            return 0;
+        case "count2more":
+            return 500;
+        default:
+            return 0; 
+    }
+};
+
+let selectedYear = "";
+let yearlyUsage = 1000; 
+let membersOffamily = 1;
+const slider1 = document.getElementById('range1');
+const slider1Output = document.getElementById('value1');
+const usageCheckbox = document.getElementById('usage_checkbox');
+const noOfUserCon = document.getElementById('noofuers_con');
+const slider2 = document.getElementById('range2');
+const slider2Output = document.getElementById('value2');
+
+function updateSlider1AndYearlyUsage() {
+  switch (membersOffamily) {
+    case 1:
+      yearlyUsage = 1500;
+      break;
+    case 2:
+      yearlyUsage = 3000;
+      break;
+    case 3:
+      yearlyUsage = 3500;
+      break;
+    case 4:
+      yearlyUsage = 4000;
+      break;
+    case 5:
+      yearlyUsage = 4000;
+      break;
+    case 6:
+      yearlyUsage = 4500;
+      break;
+    case 7:
+      yearlyUsage = 5000;
+      break;
+    case 8:
+      yearlyUsage = 5500;
+      break;
+    case 9:
+      yearlyUsage = 6000;
+      break;
+    case 10:
+      yearlyUsage = 7000;
+      break;
+    default:
+      yearlyUsage = 1000; 
+  }
+  slider1.value = yearlyUsage;
+  slider1Output.textContent = yearlyUsage;
+}
+
+slider1.addEventListener('input', function (e) {
+  slider1Output.textContent = e.target.value;
+  yearlyUsage = parseFloat(e.target.value); 
+  const discount = getGovDiscount(selectedYear, yearlyUsage);
+  //console.log("Discount: $" + discount); 
+});
+
+
+usageCheckbox.addEventListener('change', function() {
+  if (usageCheckbox.checked) {
+    noOfUserCon.style.display = 'block';
+    
+  } else {
+    noOfUserCon.style.display = 'none';
+    
+  }
+  if (usageCheckbox.checked) {
+    updateSlider1AndYearlyUsage();
+  }
+});
+
+
+slider2.addEventListener('input', function (e) {
+  slider2Output.textContent = e.target.value;
+  membersOffamily = parseFloat(e.target.value);
+  if (usageCheckbox.checked) {
+    updateSlider1AndYearlyUsage();
+  }
+  //console.log(e.target.value);
+});
+
+// Gov Discount
+for (let i = 0; i < YearRadioButtons.length; i++) {
+  YearRadioButtons[i].addEventListener("change", function () {
+    selectedYear = YearRadioButtons[i].value;
+    //console.log("Selected Year: " + selectedYear);
+    yearlyUsage = parseFloat(slider1.value); 
+    const discount = getGovDiscount(selectedYear, yearlyUsage);
+    //console.log("Discount: $" + discount); 
+  });
+}
+
+function getGovDiscount(selectedYear, yearlyUsage) {
+  if (selectedYear === "before_2014") {
+    const discount = (yearlyUsage / 1000) * 150;
+    return discount <= 750 ? discount : 750;
+  } else if (selectedYear === "after_2014") {
+    return 0;
+  } else {
+    return 0;
+  }
+}
+
+const yearUsageSubmit = document.getElementById('next8');
+yearUsageSubmit.addEventListener('click', function () {
+  const yearlyUsage = parseFloat(slider1.value);
+  const discount = getGovDiscount(selectedYear, yearlyUsage);
+  //console.log("Discount: $" + discount); 
+});
+
+//Getting Roof type
+let selectedRoofType = "";
+const roofTypeRadioButtons = document.getElementsByName("slope");
+
+for (let i = 0; i < roofTypeRadioButtons.length; i++) {
+    roofTypeRadioButtons[i].addEventListener("change", function () {
+      selectedRoofType = roofTypeRadioButtons[i].value;
+        getRoofType(selectedRoofType);
+ });
+};
+
+function getRoofType(selectedRoofType) {
+    //console.log("Slected roof type: " + selectedRoofType);
+    return selectedRoofType;
+}
+
+//Getting roof is shaded or not
+let selectedShade = "";
+const roofShadeRadioButtons = document.getElementsByName("shade");
+
+  for (let i = 0; i < roofShadeRadioButtons.length; i++) {
+    roofShadeRadioButtons[i].addEventListener("change", function () {
+      selectedShade = roofShadeRadioButtons[i].value;
+        getShadeType(selectedShade);
+    });
+  };
+
+  function getShadeType(selectedShade) {
+    //console.log("Slected roof type: " + selectedShade);
+    return selectedShade;
+  }
+
+
+function renewBeCalculater() {
+  const capacity = getCapacityFromOrientation(selectedOrientation);
+  const noOfPanels = yearlyUsage / (405 * capacity);
+  const finalNoOfPanels = Math.round(noOfPanels);
+  const arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
+  const discountAmount = getGovDiscount(selectedYear, yearlyUsage);
+  const roofTypeSelection = selectedRoofType;
+  const roofShadeSelection = selectedShade;
+  let panelCost;
+
+  // Find the index in pannelData for the given number of panels
+  const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
+
+  if (panelIndex !== -1) {
+
+  // Determine the roof type and shade selection
+  const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
+  const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
+
+  // Get the panel cost based on the roof type and shade selection
+  panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
+
+  //console.log("Panel Cost:", panelCost);
+   } else {
+  //console.log("Panel data not found for the given number of panels.");
+  }
+
+  // Pannel installation price
+  const instalationwithoutdiscount = panelCost + arialPlatformCost;
+  const installationCost = panelCost + arialPlatformCost - discountAmount;
+
+  //Yearly electrycity price
+  const yearlyElectricityCost = yearlyUsage * 0.31; 
+
+  //Payback period
+  const payBackPeriod = installationCost/ yearlyElectricityCost;
+  const payBackPeriodFinal = Math.round(payBackPeriod);
+  
+  // Savings in 25 Years
+  const savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
+  const savingin25YearsFinal = Math.round(savingin25Years);
+  
+  //Energy Savings in 25 Years
+  const energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
+  const energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
+  
+      var formData = {
+        payBackPeriod: payBackPeriod,
+        payBackPeriodFinal: payBackPeriodFinal,
+        selectedOrientation: selectedOrientation,
+        savingin25YearsFinal: savingin25YearsFinal,
+        energySavingsIn25YearsFinal: energySavingsIn25YearsFinal,
+        yearlyElectricityCost: yearlyElectricityCost,
+        instalationwithoutdiscount: instalationwithoutdiscount,
+        discountAmount: discountAmount,
+        installationCost: installationCost,
+        }; 
+  sessionStorage.setItem("formData", JSON.stringify(formData));
+
+}
+
+ const lasSubmit = document.getElementById('next9');
+  lasSubmit.addEventListener("click", renewBeCalculater);
+
+
+</script>
