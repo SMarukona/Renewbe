@@ -168,11 +168,11 @@ const steps = Array.from({ length: stepCount }, (_, index) => document.getElemen
 const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
 const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
 
-/* Next button click event
+// Next button click event
 function handleNextClick(stepIndex) {
   steps[stepIndex].classList.add('more_left');
   steps[stepIndex + 1].classList.remove('more_right');
-}*/
+}
 
 // Add click event listeners for back buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
@@ -190,6 +190,19 @@ const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
+
+propertyRadioGroup.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (rentRadio.checked) {
+      nextButtons[0].classList.add('disabled');
+      nextButtons[0].removeEventListener('click', handleNextClick(0));
+    }else if(ownerRadio.checked){
+      nextButtons[0].classList.remove('disabled');
+      nextButtons[0].addEventListener('click', handleNextClick(0));
+    }
+});
+  });
+
 
 // Step 2
 // Step2 warning text
