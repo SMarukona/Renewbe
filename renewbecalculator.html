@@ -188,6 +188,10 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   });
 }
 
+// Remove click event listner and add disable class to next buttons.
+nextButtons[0].classList.add("disabled");
+nextButtons[0].removeEventListener('click', handleNextClick);
+
 // Step1 warning text
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
