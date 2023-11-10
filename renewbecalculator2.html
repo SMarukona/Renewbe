@@ -185,6 +185,21 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   });
 }
 
+function handleNextClick(stepIndex) {
+  steps[stepIndex].classList.add('more_left');
+  steps[stepIndex + 1].classList.remove('more_right');
+}
+
+function enableNextButton() {
+  nextButtons[0].classList.remove('disabled');
+  nextButtons[0].addEventListener('click', () => handleNextClick(0));
+}
+
+function disableNextButton() {
+  nextButtons[0].classList.add('disabled');
+  nextButtons[0].removeEventListener('click', () => handleNextClick(0));
+}
+
 // Step1 warning text
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
@@ -194,13 +209,13 @@ const ownerRadio = document.getElementById('owner-2');
 function updateNextButtonState() {
   if (rentRadio.checked) {
     nextButtons[0].classList.add('disabled');
-    nextButtons[0].removeEventListener('click', handleNextClick);
+    disableNextButton();
   } else if (ownerRadio.checked) {
     nextButtons[0].classList.remove('disabled');
-    nextButtons[0].addEventListener('click', handleNextClick);
+    enableNextButton();
   }else{
     nextButtons[0].classList.add('disabled');
-    nextButtons[0].removeEventListener('click', handleNextClick);
+    disableNextButton();
   }
 }
 
