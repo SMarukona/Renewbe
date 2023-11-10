@@ -161,7 +161,7 @@ const pannelData = [
     }
     
 ];
-
+/*
 //Creating step count
 const stepCount = 9;
 const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
@@ -241,8 +241,33 @@ slopeRadioGroup.forEach(radio => {
 // Initial setup for Step 2
 nextButtonStep2.removeEventListener('click', handleNextClick);
 nextButtonStep2.classList.add('disabled');
+*/
 
-/*
+const stepCount = 9;
+const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
+const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
+const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
+
+// Next button click event
+function handleNextClick(stepIndex) {
+  steps[stepIndex].classList.add('more_left');
+  steps[stepIndex + 1].classList.remove('more_right');
+}
+
+// Add click event listeners for next buttons
+for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
+  nextButtons[stepIndex].addEventListener('click', () => {
+    if (!rentRadio.checked && !caneRadio.checked) {
+      handleNextClick(stepIndex);
+    }
+  });
+
+  backs[stepIndex].addEventListener('click', () => {
+    steps[stepIndex].classList.remove('more_left');
+    steps[stepIndex + 1].classList.add('more_right');
+  });
+}
+
 // Step1 warning text
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
@@ -295,7 +320,7 @@ materiialRadioGroup.forEach(radio => {
     }
   });
 });
-*/
+
 // Step6 warning text
 const floorCountRadioGroup = document.getElementsByName('floorcount');
 const floorCountText = document.getElementById('prop_count-text');
