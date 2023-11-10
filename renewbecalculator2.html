@@ -206,6 +206,9 @@ const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
+//Initial call
+nextButtons[0].removeEventListener('click', () => handleNextClick(0));
+
 function updateNextButtonState() {
   if (rentRadio.checked) {
     nextButtons[0].classList.add('disabled');
@@ -213,11 +216,11 @@ function updateNextButtonState() {
     disableNextButton();
   } else if (ownerRadio.checked) {
     nextButtons[0].classList.remove('none');
-    warningTextStep1.style.display = 'block';
+    warningTextStep1.style.display = 'none';
     enableNextButton();
   }else{
     nextButtons[0].classList.add('none');
-    warningTextStep1.style.display = 'block';
+    warningTextStep1.style.display = 'none';
     disableNextButton();
   }
 }
