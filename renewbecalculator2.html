@@ -174,9 +174,11 @@ function handleNextClick(stepIndex) {
   steps[stepIndex + 1].classList.remove('more_right');
 }*/
 
-// Add click event listeners for next buttons
+// Add click event listeners for back buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
+
   nextButtons[stepIndex].classList.add('disabled');
+
   backs[stepIndex].addEventListener('click', () => {
     steps[stepIndex].classList.remove('more_left');
     steps[stepIndex + 1].classList.add('more_right');
