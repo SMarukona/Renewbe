@@ -200,6 +200,7 @@ function handlePropertyRadioClick() {
     warningTextStep1.style.display = "block";
     nextButtonStep1.removeEventListener('click', handleNextClick);
     nextButtonStep1.classList.add('disabled');
+    console.log("Chekced");
   } else if (ownerRadio.checked) {
     // Custom behavior for ownerRadio
     nextButtonStep1.addEventListener('click', () => handleNextClick(0));
