@@ -239,11 +239,33 @@ slopeRadioGroup.forEach(radio => {
 
 
 
-// Step3 warning text
+// Step 3
 const materiialRadioGroup = document.getElementsByName('material');
 const roofMaterialText = document.getElementById('roof_material-text');
 const caneRadio = document.getElementById('cane');
+const slatedRadio = document.getElementById('slated');
+const tilesRadio = document.getElementById('tiles');
+const zincRadio = document.getElementById('zinc');
 
+function updateNextButtonState1() {
+  if (caneRadio.checked) {
+    nextButtons[2].classList.add('disabled');
+    roofMaterialText.style.display = 'block';
+    disableNextButton(2);
+  } else if (slatedRadio.checked || tilesRadio.checked || zincRadio.checked) {
+    nextButtons[2].classList.remove('disabled');
+    roofMaterialText.style.display = 'none';
+    enableNextButton(2);
+  }
+}
+
+materiialRadioGroup.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState1);
+});
+
+
+
+/*
 materiialRadioGroup.forEach(radio => {
   radio.addEventListener("change", () => {
     if (caneRadio.checked) {
@@ -260,17 +282,8 @@ materiialRadioGroup.forEach(radio => {
       });
     }
   });
-});
+});*/
 
-// Step6 warning text
-const floorCountRadioGroup = document.getElementsByName('floorcount');
-const floorCountText = document.getElementById('prop_count-text');
-const count2MoreRadio = document.getElementById('count2more');
-
-// Step7 warning text
-const YearRadioButtons = document.getElementsByName("discount");
-const discountindicationText = document.getElementById('when_text');
-const before2014Radio = document.getElementById('before_2014');
 
 // Orientation
 let selectedOrientation = "";
@@ -300,11 +313,95 @@ function getCapacityFromOrientation(orientation) {
     }
 }
 
+
+// Step 4
+const northRadio = document.getElementById('north');
+const eastRadio = document.getElementById('east');
+const westRadio = document.getElementById('west');
+const southRadio = document.getElementById('south');
+
+function updateNextButtonState3() {
+  if (northRadio.checked || eastRadio.checked || westRadio.checked || southRadio.checked) {
+    nextButtons[3].classList.remove('disabled');
+    enableNextButton(3);
+  } else {
+    nextButtons[3].classList.add('disabled');
+    disableNextButton(3);
+  }
+}
+
+orientationRadioButtons.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState3);
+});
+
+// Step 5
+const roofShadeRadioButtons = document.getElementsByName("shade");
+const yesRadio = document.getElementById('yes');
+const noRadio = document.getElementById('no');
+
+function updateNextButtonState4() {
+  if (yesRadio.checked || noRadio.checked) {
+    nextButtons[4].classList.remove('disabled');
+    enableNextButton(4);
+  } else {
+    nextButtons[4].classList.add('disabled');
+    disableNextButton(4);
+  }
+}
+
+roofShadeRadioButtons.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState4);
+});
+
+
+// Step 6
+const floorCountRadioGroup = document.getElementsByName('floorcount');
+const floorCountText = document.getElementById('prop_count-text');
+const count1Radio = document.getElementById('count1');
+const count2Radio = document.getElementById('count2');
+const count2MoreRadio = document.getElementById('count2more');
+
+function updateNextButtonState5() {
+  if (count1Radio.checked || count2Radio.checked || count2moreRadio.checked) {
+    nextButtons[5].classList.remove('disabled');
+    enableNextButton(5);
+  } else {
+    nextButtons[5].classList.add('disabled');
+    disableNextButton(5);
+  }
+}
+
+floorCountRadioGroup.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState5);
+});
+
+
+// Step 7
+const YearRadioButtons = document.getElementsByName("discount");
+const discountindicationText = document.getElementById('when_text');
+const before2014Radio = document.getElementById('before_2014');
+const after2014Radio = document.getElementById('after_2014');
+
+function updateNextButtonState6() {
+  if (before2014Radio.checked || after2014Radio.checked) {
+    nextButtons[6].classList.remove('disabled');
+    enableNextButton(6);
+  } else {
+    nextButtons[6].classList.add('disabled');
+    disableNextButton(6);
+  }
+}
+
+YearRadioButtons.forEach(radio => {
+  radio.addEventListener("change", updateNextButtonState6);
+});
+
+
 // Installation Additional cost
 let selectedFloorCount = "";
 let arialPlatformCost = 0; 
 
-const floorCountRadioButtons = document.getElementsByName("floorcount");
+
 for (let i = 0; i < floorCountRadioButtons.length; i++) {
     floorCountRadioButtons[i].addEventListener("change", function() {
         selectedFloorCount = floorCountRadioButtons[i].value;
@@ -453,7 +550,7 @@ function getRoofType(selectedRoofType) {
 
 //Getting roof is shaded or not
 let selectedShade = "";
-const roofShadeRadioButtons = document.getElementsByName("shade");
+
 
   for (let i = 0; i < roofShadeRadioButtons.length; i++) {
     roofShadeRadioButtons[i].addEventListener("change", function () {
