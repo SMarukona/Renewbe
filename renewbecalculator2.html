@@ -194,6 +194,11 @@ const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 const nextButtonStep1 = nextButtons[0];
 
+// Initial setup for Step 1
+// Default behavior for Step 1
+nextButtonStep1.removeEventListener('click', handleNextClick);
+nextButtonStep1.classList.add('disabled');
+
 function handlePropertyRadioClick() {
   if (rentRadio.checked) {
     // Default behavior
@@ -213,10 +218,7 @@ propertyRadioGroup.forEach(radio => {
   radio.addEventListener('click', handlePropertyRadioClick);
 });
 
-// Initial setup for Step 1
-// Default behavior for Step 1
-nextButtonStep1.removeEventListener('click', handleNextClick);
-nextButtonStep1.classList.add('disabled');
+
 
 // Step 2
 // Step2 warning text
