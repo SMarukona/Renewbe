@@ -168,10 +168,19 @@ const steps = Array.from({ length: stepCount }, (_, index) => document.getElemen
 const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
 const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
 
-// Function to handle next button click
+/* Next button click event
 function handleNextClick(stepIndex) {
   steps[stepIndex].classList.add('more_left');
   steps[stepIndex + 1].classList.remove('more_right');
+}*/
+
+// Add click event listeners for next buttons
+for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
+  nextButtons[stepIndex].classList.add('disabled');
+  backs[stepIndex].addEventListener('click', () => {
+    steps[stepIndex].classList.remove('more_left');
+    steps[stepIndex + 1].classList.add('more_right');
+  });
 }
 
 // Step1 warning text
@@ -179,46 +188,6 @@ const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
-
-// Function to handle radio button change
-function handleRadioChange() {
-  const nextButton0 = nextButtons[0];
-
-  // Check if either rentRadio or ownerRadio is checked
-  const isRadioChecked = rentRadio.checked || ownerRadio.checked;
-
-  // Disable or enable next button based on radio button state
-  if (isRadioChecked) {
-    nextButton0.classList.remove('disabled');
-    nextButton0.addEventListener('click', () => handleNextClick(0));
-  } else {
-    nextButton0.classList.add('disabled');
-    nextButton0.removeEventListener('click', () => handleNextClick(0));
-  }
-}
-
-// Add click event listeners for next buttons
-for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
-  nextButtons[stepIndex].addEventListener('click', () => {
-    handleNextClick(stepIndex);
-  });
-
-  backs[stepIndex].addEventListener('click', () => {
-    steps[stepIndex].classList.remove('more_left');
-    steps[stepIndex + 1].classList.add('more_right');
-  });
-}
-
-// Add change event listener for radio buttons
-rentRadio.addEventListener('change', handleRadioChange);
-ownerRadio.addEventListener('change', handleRadioChange);
-
-// Initial check for radio button state
-handleRadioChange();
-
-
-
-
 
 // Step 2
 // Step2 warning text
