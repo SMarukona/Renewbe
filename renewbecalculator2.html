@@ -218,15 +218,10 @@ function updateNextButtonState() {
     nextButtons[0].classList.remove('none');
     warningTextStep1.style.display = 'none';
     enableNextButton();
-  }else{
-    nextButtons[0].classList.add('none');
-    warningTextStep1.style.display = 'none';
-    disableNextButton();
   }
 }
 
-// Add initial state based on default checked radio button
-updateNextButtonState();
+
 
 propertyRadioGroup.forEach(radio => {
   radio.addEventListener("change", updateNextButtonState);
