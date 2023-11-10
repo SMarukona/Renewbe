@@ -177,9 +177,7 @@ function handleNextClick(stepIndex) {
 // Add click event listeners for next buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   nextButtons[stepIndex].addEventListener('click', () => {
-    if (!rentRadio.checked && !caneRadio.checked) {
       handleNextClick(stepIndex);
-    }
   });
 
   backs[stepIndex].addEventListener('click', () => {
@@ -193,35 +191,6 @@ const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
-
-// Default next button state
-nextButtons[0].classList.add("disabled");
-
-function updateNextButtonState() {
-  if (rentRadio.checked) {
-    warningTextStep1.style.display = "block";
-    nextButtons[0].classList.add("disabled");
-    nextButtons[0].removeEventListener('click', handleNextClick);
-  } else {
-    warningTextStep1.style.display = "none";
-    nextButtons[0].classList.remove("disabled");
-    nextButtons[0].addEventListener('click', handleNextButtonClick);
-  }
-}
-
-function handleNextButtonClick() {
-  if (!rentRadio.checked) {
-    handleNextClick(0);
-  }
-}
-
-// Add change event listener for property radio group
-propertyRadioGroup.forEach(radio => {
-  radio.addEventListener("change", updateNextButtonState);
-});
-
-// Initial state
-updateNextButtonState();
 
 
 
