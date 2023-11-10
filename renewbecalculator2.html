@@ -200,12 +200,9 @@ function handlePropertyRadioClick() {
   if (rentRadio.checked) {
     nextButtonStep1.removeEventListener('click', handleNextClick);
     nextButtonStep1.classList.add('disabled');
-    warningTextStep1.style.display = "block";
-    
   } else if (ownerRadio.checked) {
     nextButtonStep1.addEventListener('click', () => handleNextClick(0));
     nextButtonStep1.classList.remove('disabled');
-    warningTextStep1.style.display = "none";
   }
 }
 
@@ -213,10 +210,6 @@ function handlePropertyRadioClick() {
 propertyRadioGroup.forEach(radio => {
   radio.addEventListener('click', handlePropertyRadioClick);
 });
-
-// Initial setup for Step 1
-nextButtonStep1.removeEventListener('click', handleNextClick);
-nextButtonStep1.classList.add('disabled');
 
 // Step 2
 // Step2 warning text
@@ -238,9 +231,10 @@ slopeRadioGroup.forEach(radio => {
   radio.addEventListener('click', handleSlopeRadioClick);
 });
 
-// Initial setup for Step 2
-nextButtonStep2.removeEventListener('click', handleNextClick);
-nextButtonStep2.classList.add('disabled');
+// Initial setup for Step 1
+nextButtonStep1.removeEventListener('click', handleNextClick);
+nextButtonStep1.classList.add('disabled');
+
 
 
 
