@@ -194,32 +194,6 @@ const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 const nextButtonStep1 = nextButtons[0];
 
-// Initial setup for Step 1
-// Default behavior for Step 1
-nextButtonStep1.removeEventListener('click', handleNextClick);
-nextButtonStep1.classList.add('disabled');
-
-function handlePropertyRadioClick() {
-  if (rentRadio.checked) {
-    // Default behavior
-    warningTextStep1.style.display = "block";
-    nextButtonStep1.removeEventListener('click', handleNextClick);
-    nextButtonStep1.classList.add('disabled');
-    console.log("Chekced");
-  } else if (ownerRadio.checked) {
-    // Custom behavior for ownerRadio
-    nextButtonStep1.addEventListener('click', () => handleNextClick(0));
-    nextButtonStep1.classList.remove('disabled');
-  }
-}
-
-// Add click event listeners for property radio buttons
-propertyRadioGroup.forEach(radio => {
-  radio.addEventListener('click', handlePropertyRadioClick);
-});
-
-
-
 // Step 2
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
@@ -227,21 +201,6 @@ const flatRoofText = document.getElementById('flat_roof-text');
 const flatRadio = document.getElementById('flat');
 const tiltedRadio = document.getElementById('tilted');
 const nextButtonStep2 = nextButtons[1];
-
-function handleSlopeRadioClick() {
-  if (flatRadio.checked || tiltedRadio.checked) {
-    // Custom behavior for flatRadio and tiltedRadio
-    nextButtonStep2.addEventListener('click', () => handleNextClick(1));
-    nextButtonStep2.classList.remove('disabled');
-  }
-}
-
-// Add click event listeners for slope radio buttons
-slopeRadioGroup.forEach(radio => {
-  radio.addEventListener('click', handleSlopeRadioClick);
-});
-
-
 
 
 
