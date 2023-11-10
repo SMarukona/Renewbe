@@ -162,86 +162,6 @@ const pannelData = [
     
 ];
 
-// Creating step count
-const stepCount = 9;
-const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
-const backs = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`back${index + 2}`));
-const nextButtons = Array.from({ length: stepCount - 1 }, (_, index) => document.getElementById(`next${index + 1}`));
-
-// Step1 warning text
-const propertyRadioGroup = document.getElementsByName('property');
-const warningTextStep1 = document.getElementById('w_step1');
-const rentRadio = document.getElementById('rent');
-const ownerRadio = document.getElementById('owner-2');
-
-// Add initial disabled class and remove click event listener
-nextButtons[0].classList.add("disabled");
-nextButtons[0].removeEventListener('click', handleNextClick);
-
-// Add click event listener for ownerRadio
-ownerRadio.addEventListener('change', () => {
-  if (ownerRadio.checked) {
-    nextButtons[0].classList.remove("disabled");
-    nextButtons[0].addEventListener('click', () => {
-      if (!rentRadio.checked) {
-        handleNextClick(0);
-      }
-    });
-  } else {
-    nextButtons[0].classList.add("disabled");
-    nextButtons[0].removeEventListener('click', handleNextClick);
-  }
-});
-
-// Add click event listener for rentRadio
-rentRadio.addEventListener('change', () => {
-  if (rentRadio.checked) {
-    nextButtons[0].classList.add("disabled");
-    nextButtons[0].removeEventListener('click', handleNextClick);
-  } else {
-    nextButtons[0].classList.remove("disabled");
-    nextButtons[0].addEventListener('click', () => {
-      if (!rentRadio.checked) {
-        handleNextClick(0);
-      }
-    });
-  }
-});
-
-// Add click event listeners for next buttons
-for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
-  nextButtons[stepIndex].addEventListener('click', () => {
-    if (!rentRadio.checked && !caneRadio.checked) {
-      handleNextClick(stepIndex);
-    }
-  });
-
-  backs[stepIndex].addEventListener('click', () => {
-    steps[stepIndex].classList.remove('more_left');
-    steps[stepIndex + 1].classList.add('more_right');
-  });
-}
-
-// Add change event listener for propertyRadioGroup
-propertyRadioGroup.forEach(radio => {
-  radio.addEventListener("change", () => {
-    if (rentRadio.checked) {
-      warningTextStep1.style.display = "block";
-      nextButtons[0].classList.add("disabled");
-      nextButtons[0].removeEventListener('click', handleNextClick);
-    } else {
-      warningTextStep1.style.display = "none";
-      nextButtons[0].classList.remove("disabled");
-      nextButtons[0].addEventListener('click', () => {
-        if (!rentRadio.checked) {
-          handleNextClick(0);
-        }
-      });
-    }
-  });
-});
-
-/*
 //Creating step count
 const stepCount = 9;
 const steps = Array.from({ length: stepCount }, (_, index) => document.getElementById(`step${index + 1}`));
@@ -268,10 +188,54 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   });
 }
 
-// Remove click event listner and add disable class to next buttons.
-nextButtons[0].classList.add("disabled");
-nextButtons[0].removeEventListener('click', handleNextClick);
+// Step 1
+// Step1 warning text
+const propertyRadioGroup = document.getElementsByName('property');
+const warningTextStep1 = document.getElementById('w_step1');
+const rentRadio = document.getElementById('rent');
+const ownerRadio = document.getElementById('owner-2');
+const nextButtonStep1 = nextButtons[0];
 
+function handlePropertyRadioClick() {
+  if (rentRadio.checked) {
+    nextButtonStep1.removeEventListener('click', handleNextClick);
+    nextButtonStep1.classList.add('disabled');
+  } else if (ownerRadio.checked) {
+    nextButtonStep1.addEventListener('click', () => handleNextClick(0));
+    nextButtonStep1.classList.remove('disabled');
+  }
+}
+
+// Add click event listeners for property radio buttons
+propertyRadioGroup.forEach(radio => {
+  radio.addEventListener('click', handlePropertyRadioClick);
+});
+
+// Step 2
+// Step2 warning text
+const slopeRadioGroup = document.getElementsByName('slope');
+const flatRoofText = document.getElementById('flat_roof-text');
+const flatRadio = document.getElementById('flat');
+const tiltedRadio = document.getElementById('tilted');
+const nextButtonStep2 = nextButtons[1];
+
+function handleSlopeRadioClick() {
+  if (flatRadio.checked || tiltedRadio.checked) {
+    nextButtonStep2.addEventListener('click', () => handleNextClick(1));
+    nextButtonStep2.classList.remove('disabled');
+  }
+}
+
+// Add click event listeners for slope radio buttons
+slopeRadioGroup.forEach(radio => {
+  radio.addEventListener('click', handleSlopeRadioClick);
+});
+
+// Initial setup for Step 1
+nextButtonStep1.removeEventListener('click', handleNextClick);
+nextButtonStep1.classList.add('disabled');
+
+/*
 // Step1 warning text
 const propertyRadioGroup = document.getElementsByName('property');
 const warningTextStep1 = document.getElementById('w_step1');
@@ -295,11 +259,12 @@ propertyRadioGroup.forEach(radio => {
     }
   });
 });
-*/
+
 // Step2 warning text
 const slopeRadioGroup = document.getElementsByName('slope');
 const flatRoofText = document.getElementById('flat_roof-text');
 const flatRadio = document.getElementById('flat');
+const tiltedRadio = document.getElementById('tilted');
 
 // Step3 warning text
 const materiialRadioGroup = document.getElementsByName('material');
@@ -323,7 +288,7 @@ materiialRadioGroup.forEach(radio => {
     }
   });
 });
-
+*/
 // Step6 warning text
 const floorCountRadioGroup = document.getElementsByName('floorcount');
 const floorCountText = document.getElementById('prop_count-text');
