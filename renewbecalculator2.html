@@ -177,7 +177,9 @@ function handleNextClick(stepIndex) {
 // Add click event listeners for next buttons
 for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   nextButtons[stepIndex].addEventListener('click', () => {
-    handleNextClick(stepIndex);
+    if (!rentRadio.checked && !caneRadio.checked) {
+      handleNextClick(stepIndex);
+    }
   });
 
   backs[stepIndex].addEventListener('click', () => {
@@ -186,44 +188,33 @@ for (let stepIndex = 0; stepIndex < stepCount - 1; stepIndex++) {
   });
 }
 
-// Step 1
 // Step1 warning text
-
-const warningTextStep1 = document.getElementById('w_step1');
-
-// Step 1 elements and selections
 const propertyRadioGroup = document.getElementsByName('property');
+const warningTextStep1 = document.getElementById('w_step1');
 const rentRadio = document.getElementById('rent');
 const ownerRadio = document.getElementById('owner-2');
 
-// Disable the next button by default
-nextButtons[0].classList.add('disabled');
+//Default nextbutton state
+nextButtons[0].removeEventListener('click', handleNextClick);
+nextButtons[0].classList.add("disabled");
 
-// Function to handle radio button change
-function handleRadioButtonChange() {
-  // Check if ownerRadio is checked
-  if (ownerRadio.checked) {
-    // Enable the next button and add click event listener
-    nextButtons[0].classList.remove('disabled');
-    nextButtons[0].addEventListener('click', () => {
-      handleNextClick(0);
-    });
-  } else {
-    // Disable the next button and remove click event listener
-    nextButtons[0].classList.add('disabled');
-    nextButtons[0].removeEventListener('click', () => {
-      handleNextClick(0);
-    });
-  }
-}
-
-// Add event listeners for radio button change
-propertyRadioGroup.forEach((radio) => {
-  radio.addEventListener('change', handleRadioButtonChange);
+propertyRadioGroup.forEach(radio => {
+  radio.addEventListener("change", () => {
+    if (rentRadio.checked) {
+      warningTextStep1.style.display = "block";
+      nextButtons[0].classList.add("disabled");
+      nextButtons[0].removeEventListener('click', handleNextClick);
+    } else {
+      warningTextStep1.style.display = "none";
+      nextButtons[0].classList.remove("disabled");
+      nextButtons[0].addEventListener('click', () => {
+        if (!rentRadio.checked) {
+          handleNextClick(0);
+        }
+      });
+    }
+  });
 });
-
-// Add event listener for initial check on page load
-document.addEventListener('DOMContentLoaded', handleRadioButtonChange);
 
 
 // Step 2
@@ -233,10 +224,6 @@ const flatRoofText = document.getElementById('flat_roof-text');
 const flatRadio = document.getElementById('flat');
 const tiltedRadio = document.getElementById('tilted');
 const nextButtonStep2 = nextButtons[1];
-
-
-
-
 
 // Step3 warning text
 const materiialRadioGroup = document.getElementsByName('material');
