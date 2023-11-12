@@ -383,6 +383,7 @@ const formName = document.getElementById('Name');
 const formPostalCode = document.getElementById('Postal-Code-3');
 const formEmail = document.getElementById('Your-Email');
 const formPhone = document.getElementById('Your-Phone');
+const next9 = document.getElementById('next9');
 
 // Function to check if all fields are empty
 function areAllFieldsEmpty() {
@@ -398,10 +399,10 @@ function areAllFieldsEmpty() {
 // Function to toggle the disabled class on the next button
 function toggleNextButton() {
   if (areAllFieldsEmpty()) {
-    nextButtons[8].classList.add('disabled');
+    next9.classList.add('disabled');
     console.log("empty");
   } else {
-    nextButtons[8].classList.remove('disabled');
+    next9.classList.remove('disabled');
     console.log("added");
   }
 }
