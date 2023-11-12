@@ -385,24 +385,24 @@ const formEmail = document.getElementById('Your-Email');
 const formPhone = document.getElementById('Your-Phone');
 const next9 = document.getElementById('next9');
 
-// Function to check if all fields are empty
-function areAllFieldsEmpty() {
+// Function to check if all fields have values
+function doAllFieldsHaveValues() {
   return (
-    formName.value.trim() === '' &&
-    formPostalCode.value.trim() === '' &&
-    formEmail.value.trim() === '' &&
-    formPhone.value.trim() === ''
+    formName.value.trim() !== '' &&
+    formPostalCode.value.trim() !== '' &&
+    formEmail.value.trim() !== '' &&
+    formPhone.value.trim() !== ''
   );
 }
 
 // Function to toggle the disabled class on the next button
 function toggleNextButton() {
-  if (areAllFieldsEmpty()) {
-    next9.classList.add('disabled');
-    console.log("added");
-  } else {
+  if (doAllFieldsHaveValues()) {
     next9.classList.remove('disabled');
     console.log("removed");
+  } else {
+    next9.classList.add('disabled');
+    console.log("added");
   }
 }
 
@@ -411,6 +411,7 @@ document.addEventListener('input', toggleNextButton);
 
 // Call the toggleNextButton function initially to set the initial state of the button
 toggleNextButton();
+
 
 
 
