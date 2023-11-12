@@ -376,6 +376,41 @@ yearRadioButtons.forEach(radio => {
 
 //Step 8
 nextButtons[7].addEventListener('click', () => handleNextClick(7));
+nextButtons[7].classList.remove('disabled');
+
+//Step 9
+const formName = document.getElementById('Name');
+const formPostalCode = document.getElementById('Postal-Code-3');
+const formEmail = document.getElementById('Your-Email');
+const formPhone = document.getElementById('Your-Phone');
+
+// Function to check if all fields are empty
+function areAllFieldsEmpty() {
+  return (
+    formName.value.trim() === '' &&
+    formPostalCode.value.trim() === '' &&
+    formEmail.value.trim() === '' &&
+    formPhone.value.trim() === ''
+  );
+}
+
+
+// Function to toggle the disabled class on the next button
+function toggleNextButton() {
+  if (areAllFieldsEmpty()) {
+    nextButtons[8].classList.remove('disabled');
+  } else {
+    nextButtons[8].classList.add('disabled');
+  }
+}
+
+
+// Add event listeners to each form field to trigger the toggleNextButton function
+formName.addEventListener('input', toggleNextButton);
+formPostalCode.addEventListener('input', toggleNextButton);
+formEmail.addEventListener('input', toggleNextButton);
+formPhone.addEventListener('input', toggleNextButton);
+
 
 // Orientation
 let selectedOrientation = "";
