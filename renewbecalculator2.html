@@ -398,9 +398,11 @@ function areAllFieldsEmpty() {
 // Function to toggle the disabled class on the next button
 function toggleNextButton() {
   if (areAllFieldsEmpty()) {
-    nextButtons[8].classList.toggle('disabled');
+    nextButtons[8].classList.add('disabled');
+    console.log("empty all");
   } else {
-    nextButtons[8].classList.toggle('disabled');
+    nextButtons[8].classList.remove('disabled');
+    console.log("added all");
   }
 }
 
