@@ -339,7 +339,7 @@ const count2Radio = document.getElementById('count2');
 const count2MoreRadio = document.getElementById('count2more');
 
 function updateNextButtonState5() {
-  if (count1Radio.checked || count2Radio.checked || count2moreRadio.checked) {
+  if (count1Radio.checked || count2Radio.checked || count2MoreRadio.checked) {
     nextButtons[5].classList.remove('disabled');
     enableNextButton(5);
   } else {
