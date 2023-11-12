@@ -399,10 +399,10 @@ function areAllFieldsEmpty() {
 function toggleNextButton() {
   if (areAllFieldsEmpty()) {
     nextButtons[8].classList.add('disabled');
-    console.log("empty all");
+    console.log("empty");
   } else {
     nextButtons[8].classList.remove('disabled');
-    console.log("added all");
+    console.log("added");
   }
 }
 
@@ -447,9 +447,9 @@ let selectedFloorCount = "";
 let arialPlatformCost = 0; 
 
 
-for (let i = 0; i < floorCountRadioButtons.length; i++) {
-    floorCountRadioButtons[i].addEventListener("change", function() {
-        selectedFloorCount = floorCountRadioButtons[i].value;
+for (let i = 0; i < floorCountRadioGroup.length; i++) {
+  floorCountRadioGroup[i].addEventListener("change", function() {
+        selectedFloorCount = floorCountRadioGroup[i].value;
         arialPlatformCost = getarielPlatformCostfromFloorCount(selectedFloorCount);
         //console.log("Selected Floor Count: " + selectedFloorCount);
         //console.log("Aerial Plaform Cost: " + arialPlatformCost);
