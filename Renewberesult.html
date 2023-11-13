@@ -180,12 +180,34 @@ const pannelData = [
  var instalationwithoutdiscount = formData.instalationwithoutdiscount;
  var discountAmount = formData.discountAmount;
  var installationCost = formData.installationCost;
- var finalNoOfPanels = formData.finalNoOfPanels;
+ var noOfPanels = formData.noOfPanels;
+ var finalNoOfPanels = Math.round(noOfPanels);
  var selectedShade =  formData.selectedShade;
  var selectedRoofType = formData.selectedRoofType;
  var panelCost = formData.panelCost;
  var arialPlatformCost = formData.arialPlatformCost;
  
+
+ console.log("selectedOrientation: " + selectedOrientation + "\n" + 
+             "noOfPanels: " + noOfPanels + "\n" +
+             "finalNoOfPanels: " + finalNoOfPanels + "\n" +
+             "selectedShade: " + selectedShade + "\n" +
+             "selectedRoofType: " + selectedRoofType + "\n" +
+             "panelCost: " + panelCost + "\n" +
+             "arialPlatformCost: " + arialPlatformCost + "\n" +
+             "installationCost: " + installationCost + "\n" +
+             "discountAmount: " + discountAmount + "\n" +
+             "instalationwithoutdiscount: " + instalationwithoutdiscount + "\n" +
+             "payBackPeriod: " + payBackPeriod + "\n" +
+             "payBackPeriodFinal: " + payBackPeriodFinal + "\n" +
+             "savingin25Years: " + savingin25Years + "\n" +
+             "savingin25YearsFinal: " + savingin25YearsFinal + "\n" +
+             "energySavingsIn25Years: " + energySavingsIn25Years + "\n" +
+             "energySavingsIn25YearsFinal: " + energySavingsIn25YearsFinal + "\n" +
+             "yearlyElectricityCost: " + yearlyElectricityCost + "\n" +
+             "energySavingsIn25Years: " + energySavingsIn25Years + "\n" 
+             );
+
  const paybackWrapper = document.getElementById('payback_wrapper');
  paybackWrapper.textContent = payBackPeriodFinal;
   
@@ -204,8 +226,6 @@ const pannelData = [
  const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
  totalInstolllationWrapper.textContent = installationCost.toLocaleString();
 
-console.log(payBackPeriodFinal + " " + orient);
- 
 const savings = [];
 
     for (let i = 1; i <= 25; i++) {
@@ -272,8 +292,10 @@ const savings = [];
         }
        }
       });
+
 //Setting new counter field value
 counterField.value = finalNoOfPanels;
+
 
 
 //Pannel Cost Estimation while click on the - and +
