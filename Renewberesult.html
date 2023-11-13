@@ -326,7 +326,13 @@ function updateResult(){
   savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   
-  console.log("Panel Cost:", panelCost);
+  console.log("Panel Cost:" + panelCost + "\n" +
+              "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
+              "installationCost:" + installationCost + "\n" +
+              "payBackPeriod:" + payBackPeriod + "\n" +
+              "savingin25Years:" + savingin25Years + "\n" +
+              "energySavingsIn25Years:" + energySavingsIn25Years + "\n"
+  );
    } else {
   //console.log("Panel data not found for the given number of panels.");
   }
