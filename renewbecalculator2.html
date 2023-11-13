@@ -659,14 +659,18 @@ function renewBeCalculater() {
   
       var formData = {
         payBackPeriod: payBackPeriod,
-        payBackPeriodFinal: payBackPeriodFinal,
+        finalNoOfPanels: finalNoOfPanels,
+        selectedShade: selectedShade,
+        selectedRoofType: selectedRoofType,
+        panelCost: panelCost,
         selectedOrientation: selectedOrientation,
-        savingin25YearsFinal: savingin25YearsFinal,
-        energySavingsIn25YearsFinal: energySavingsIn25YearsFinal,
+        savingin25Years: savingin25Years,
+        energySavingsIn25Years: energySavingsIn25Years,
         yearlyElectricityCost: yearlyElectricityCost,
         instalationwithoutdiscount: instalationwithoutdiscount,
         discountAmount: discountAmount,
         installationCost: installationCost,
+        arialPlatformCost: arialPlatformCost,
         }; 
   sessionStorage.setItem("formData", JSON.stringify(formData));
 

@@ -1,0 +1,328 @@
+<!-- chartjs integration-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Panel data is taken from the Google sheet
+const pannelData = [
+    {
+        "Amount of Solar Panels": 1,
+        "Wattage": 410,
+        "Real Wattage": 328,
+        "Tilted": { "Micro (x4)": 0, "String": 0 },
+        "Flat": { "Micro (x4)": 0, "String": 0 }
+    },
+    {
+        "Amount of Solar Panels": 2,
+        "Wattage": 820,
+        "Real Wattage": 656,
+        "Tilted": { "Micro (x4)": 2366, "String": 1831 },
+        "Flat": { "Micro (x4)": 2446, "String": 1853 }
+    },
+    {
+        "Amount of Solar Panels": 3,
+        "Wattage": 1230,
+        "Real Wattage": 984,
+        "Tilted": { "Micro (x4)": 2881, "String": 2292 },
+        "Flat": { "Micro (x4)": 2987, "String": 2327 }
+    },
+    {
+        "Amount of Solar Panels": 4,
+        "Wattage": 1640,
+        "Real Wattage": 1312,
+        "Tilted": { "Micro (x4)": 3482, "String": 2753 },
+        "Flat": { "Micro (x4)": 3528, "String": 2797 }
+    },
+    {
+        "Amount of Solar Panels": 5,
+        "Wattage": 2050,
+        "Real Wattage": 1640,
+        "Tilted": { "Micro (x4)": 4011, "String": 3214 },
+        "Flat": { "Micro (x4)": 4067, "String": 3269 }
+    },
+    {
+        "Amount of Solar Panels": 6,
+        "Wattage": 2460,
+        "Real Wattage": 1968,
+        "Tilted": { "Micro (x4)": 4492, "String": 3626 },
+        "Flat": { "Micro (x4)": 4561, "String": 3694 }
+    },
+    {
+        "Amount of Solar Panels": 7,
+        "Wattage": 2870,
+        "Real Wattage": 2296,
+        "Tilted": { "Micro (x4)": 4976, "String": 4039 },
+        "Flat": { "Micro (x4)": 5055, "String": 4118 }
+    },
+    {
+        "Amount of Solar Panels": 8,
+        "Wattage": 3280,
+        "Real Wattage": 2624,
+        "Tilted": { "Micro (x4)": 5457, "String": 4452 },
+        "Flat": { "Micro (x4)": 5548, "String": 4542 }
+    },
+    {
+        "Amount of Solar Panels": 9,
+        "Wattage": 3690,
+        "Real Wattage": 2952,
+        "Tilted": { "Micro (x4)": 5907, "String": 4864 },
+        "Flat": { "Micro (x4)": 6041, "String": 4966 }
+    },
+    {
+        "Amount of Solar Panels": 10,
+        "Wattage": 4100,
+        "Real Wattage": 3280,
+        "Tilted": { "Micro (x4)": 6421, "String": 5278 },
+        "Flat": { "Micro (x4)": 6536, "String": 5390 }
+    },
+    {
+        "Amount of Solar Panels": 11,
+        "Wattage": 4510,
+        "Real Wattage": 3608,
+        "Tilted": { "Micro (x4)": 6904, "String": 5690 },
+        "Flat": { "Micro (x4)": 7029, "String": 5715 }
+    },
+    {
+        "Amount of Solar Panels": 12,
+        "Wattage": 4920,
+        "Real Wattage": 3936,
+        "Tilted": { "Micro (x4)": 7385, "String": 6102 },
+        "Flat": { "Micro (x4)": 7522, "String": 6239 }
+    },
+    {
+        "Amount of Solar Panels": 13,
+        "Wattage": 5330,
+        "Real Wattage": 4264,
+        "Tilted": { "Micro (x4)": 7868, "String": 6516 },
+        "Flat": { "Micro (x4)": 8015, "String": 6664 }
+    },
+    {
+        "Amount of Solar Panels": 14,
+        "Wattage": 5740,
+        "Real Wattage": 4592,
+        "Tilted": { "Micro (x4)": 8350, "String": 6928 },
+        "Flat": { "Micro (x4)": 8510, "String": 7087 }
+    },
+    {
+        "Amount of Solar Panels": 15,
+        "Wattage": 6150,
+        "Real Wattage": 4920,
+        "Tilted": { "Micro (x4)": 8806, "String": 7318 },
+        "Flat": { "Micro (x4)": 8976, "String": 7488 }
+    },
+    {
+        "Amount of Solar Panels": 16,
+        "Wattage": 6560,
+        "Real Wattage": 5248,
+        "Tilted": { "Micro (x4)": 9288, "String": 7730 },
+        "Flat": { "Micro (x4)": 9468, "String": 7911 }
+    },
+    {
+        "Amount of Solar Panels": 17,
+        "Wattage": 6970,
+        "Real Wattage": 5576,
+        "Tilted": { "Micro (x4)": 9768, "String": 8141},
+        "Flat": { "Micro (x4)": 9959, "String": 8334}
+    },
+    {
+        "Amount of Solar Panels": 18,
+        "Wattage": 7380,
+        "Real Wattage": 5904,
+        "Tilted": { "Micro (x4)": 10249, "String": 10249 },
+        "Flat": { "Micro (x4)": 10452, "String": 8757 }
+    },
+    {
+        "Amount of Solar Panels": 19,
+        "Wattage": 7790,
+        "Real Wattage": 6232,
+        "Tilted": { "Micro (x4)": 10729, "String": 8963 },
+        "Flat": { "Micro (x4)": 10943, "String": 9179 }
+    },
+    {
+        "Amount of Solar Panels": 20,
+        "Wattage": 8200,
+        "Real Wattage": 6560,
+        "Tilted": { "Micro (x4)": 11211, "String": 9376 },
+        "Flat": { "Micro (x4)": 11453, "String": 9601 }
+    },
+    {
+        "Amount of Solar Panels": 21,
+        "Wattage": 8610,
+        "Real Wattage": 6888,
+        "Tilted": { "Micro (x4)": 11691, "String": 9787 },
+        "Flat": { "Micro (x4)": 11927, "String": 10024 }
+    },
+    {
+        "Amount of Solar Panels": 22,
+        "Wattage": 9020,
+        "Real Wattage": 7216,
+        "Tilted": { "Micro (x4)": 12139, "String": 10142 },
+        "Flat": { "Micro (x4)": 12387, "String": 10392 }
+    }
+    
+];
+
+
+ //Counter setup
+ const increaseButton = document.getElementById('conter_increase');
+ const decreaseButton = document.getElementById('counter_decrease');
+ const counterField = document.getElementById('counter_input');
+ 
+ var storedData = sessionStorage.getItem("formData");
+ var formData = JSON.parse(storedData);
+ var payBackPeriod = formData.payBackPeriod;
+ var payBackPeriodFinal = Math.round(payBackPeriod);
+ var savingin25Years = formData.savingin25Years;
+ var savingin25YearsFinal = Math.round(savingin25Years);
+ var energySavingsIn25Years = formData.energySavingsIn25Years;
+ var energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
+ var yearlyElectricityCost = formData.yearlyElectricityCost;
+ var selectedOrientation = formData.selectedOrientation;
+ var instalationwithoutdiscount = formData.instalationwithoutdiscount;
+ var discountAmount = formData.discountAmount;
+ var installationCost = formData.installationCost;
+ var finalNoOfPanels = formData.finalNoOfPanels;
+ var selectedShade =  formData.selectedShade;
+ var selectedRoofType = formData.selectedRoofType;
+ var panelCost = formData.panelCost;
+ var arialPlatformCost = formData.arialPlatformCost;
+ 
+ const paybackWrapper = document.getElementById('payback_wrapper');
+ paybackWrapper.textContent = payBackPeriodFinal;
+  
+ const savingIn25Years = document.getElementById('25year_saving');
+ savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
+  
+ const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
+
+ const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+ normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+
+ const govDiscountWrapper = document.getElementById('gov_discount');
+ govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+
+ const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
+ totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+ 
+ //Counter setup
+ const increaseButton = document.getElementById('gov_discount');
+ const decreaseButton = document.getElementById('gov_discount');
+ const counterField = document.getElementById('gov_discount');
+
+ console.log(payBackPeriodFinal + " " + orient);
+ 
+const savings = [];
+
+    for (let i = 1; i <= 25; i++) {
+     const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+     const savingsInYearFinal = Math.round(savingsInYear);
+        savings.push({ year: i, savingsovertime: savingsInYearFinal });
+     }
+     console.log(savings);
+  const ctx = document.getElementById('savingsChart');
+     new Chart(ctx, {
+      type: 'line',
+      data: {
+      labels: savings.map(row => row.year),
+      datasets: [{
+        data: savings.map(row => row.savingsovertime),
+        borderWidth: 1,
+        borderColor: '#004f56',
+        backgroundColor: '#e1f0ed',
+        tension: 0.4,
+        fill:{
+           target: 'origin',
+           below: 'rgba(141, 2, 31, 0.25)',
+           above: 'rgba(0, 0, 0, 0)'
+        }
+        }]
+       },
+      options: {
+       maintainAspectRatio: false,
+       animation: false,
+       plugins: { 
+        legend: {
+         display: false
+         },
+       },
+
+       scales: {
+        x: {
+          ticks: {
+              stepSize: 5
+            },
+          title:{
+            display: true,
+            text: 'Tijd (jaren)',
+            font: {
+              weight: 'bold'
+            }
+          }
+           },
+
+        y: {
+          ticks: {
+              stepSize: 10000
+            },
+          position: 'right',
+          title:{
+            display: true,
+            text: 'Besparingen(€)',
+            font: {
+              weight: 'bold'
+            }
+           }
+          }
+
+        }
+       }
+      });
+//Setting new counter field value
+counterField.value = finalNoOfPanels;
+
+
+//Pannel Cost Estimation while click on the - and +
+function updateResult(){
+ counterField.value = finalNoOfPanels;
+ 
+ const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
+ 
+   if (panelIndex !== -1) {
+
+  // Determine the roof type and shade selection
+  const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
+  const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
+
+  // Get the panel cost based on the roof type and shade selection
+  panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
+  instalationwithoutdiscount = panelCost + arialPlatformCost;
+  installationCost = panelCost + arialPlatformCost - discountAmount;
+  payBackPeriod = installationCost/yearlyElectricityCost;
+  savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
+  energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
+  
+  console.log("Panel Cost:", panelCost);
+   } else {
+  //console.log("Panel data not found for the given number of panels.");
+  }
+  
+}
+
+//Update happen when the - and +
+decreaseButton.addEventListner('click', function(){
+ finalNoOfPanels--;
+ updateResult();
+});
+
+increaseButton.addEventListner('click', function(){
+ finalNoOfPanels++;
+ updateResult();
+});
+
+counterField.addEventListener('input', function () {
+    // Parse the input value as an integer
+    finalNoOfPanels = parseInt(counterField.value) || 0;
+    updateResult();
+});
+
+</script>
