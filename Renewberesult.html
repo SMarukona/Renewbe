@@ -160,6 +160,7 @@ const pannelData = [
 
  var storedData = sessionStorage.getItem("formData");
  var formData = JSON.parse(storedData);
+ var yearlyUsage = formData.yearlyUsage;
  var payBackPeriod = formData.payBackPeriod;
  var payBackPeriodFinal = Math.round(payBackPeriod);
  var savingin25Years = formData.savingin25Years;
@@ -190,6 +191,7 @@ const pannelData = [
              "installationCost: " + installationCost + "\n" +
              "discountAmount: " + discountAmount + "\n" +
              "instalationwithoutdiscount: " + instalationwithoutdiscount + "\n" +
+             "yearlyUsage: " + yearlyUsage + "\n" +
              "payBackPeriod: " + payBackPeriod + "\n" +
              "payBackPeriodFinal: " + payBackPeriodFinal + "\n" +
              "savingin25Years: " + savingin25Years + "\n" +
