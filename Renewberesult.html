@@ -306,7 +306,8 @@ counterField.value = finalNoOfPanels;
 //Pannel Cost Estimation while click on the - and +
 function updateResult(){
  counterField.value = finalNoOfPanels;
- 
+ const roofTypeSelection = selectedRoofType;
+ const roofShadeSelection = selectedShade;
  const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
  
    if (panelIndex !== -1) {
