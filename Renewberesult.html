@@ -163,7 +163,7 @@ const pannelData = [
 
 
  //Counter setup
- const increaseButton = document.getElementById('conter_increase');
+ const increaseButton = document.getElementById('counter_increase');
  const decreaseButton = document.getElementById('counter_decrease');
  const counterField = document.getElementById('counter_input');
  
@@ -241,7 +241,7 @@ const savings = [];
         savings.push({ year: i, savingsovertime: savingsInYearFinal });
      }
      console.log(savings);
-     
+
     const ctx = document.getElementById('savingsChart');
      new Chart(ctx, {
       type: 'line',
