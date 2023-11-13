@@ -209,15 +209,6 @@ const pannelData = [
              "energySavingsIn25Years: " + energySavingsIn25Years + "\n" 
              );
 
- const paybackWrapper = document.getElementById('payback_wrapper');
- paybackWrapper.textContent = payBackPeriodFinal;
-  
- const savingIn25Years = document.getElementById('25year_saving');
- savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
-  
- const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
- energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
-
  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
  normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
 
@@ -227,6 +218,21 @@ const pannelData = [
  const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
  totalInstolllationWrapper.textContent = installationCost.toLocaleString();
 
+ const paybackWrapper = document.getElementById('payback_wrapper');
+ paybackWrapper.textContent = payBackPeriodFinal;
+  
+ const savingIn25Years = document.getElementById('25year_saving');
+ savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
+  
+ const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
+
+ 
+
+ 
+
+ 
+
 const savings = [];
 
     for (let i = 1; i <= 25; i++) {
@@ -235,7 +241,8 @@ const savings = [];
         savings.push({ year: i, savingsovertime: savingsInYearFinal });
      }
      console.log(savings);
-  const ctx = document.getElementById('savingsChart');
+     
+    const ctx = document.getElementById('savingsChart');
      new Chart(ctx, {
       type: 'line',
       data: {
