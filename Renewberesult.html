@@ -235,7 +235,7 @@ paybackWrapper.textContent = payBackPeriodFinal;
 savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
 energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
 
-
+//Chart integration
 const savingsChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -291,6 +291,7 @@ const savingsChart = new Chart(ctx, {
     }
 });
 
+//Adding Updated data into chart
 function addData(chart, label, newData) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
@@ -299,21 +300,20 @@ function addData(chart, label, newData) {
     chart.update();
 }
 
-//Update happen when the - and +
+//Update happen when the - and + and input enter
 decreaseButton.addEventListener('click', function(){
- finalNoOfPanels--;
- updateResult();
+  finalNoOfPanels--;
+  updateResult();
 });
 
 increaseButton.addEventListener('click', function(){
- finalNoOfPanels++;
- updateResult();
+  finalNoOfPanels++;
+  updateResult();
 });
 
 counterField.addEventListener('input', function () {
-    // Parse the input value as an integer
-    finalNoOfPanels = parseInt(counterField.value) || 0;
-    updateResult();
+  finalNoOfPanels = parseInt(counterField.value) || 0;
+  updateResult();
 });
 
 //Pannel Cost Estimation while click on the - and +
@@ -323,20 +323,16 @@ function updateResult(){
  const roofShadeSelection = selectedShade;
  const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
  
-   if (panelIndex !== -1) {
-
-  // Determine the roof type and shade selection
+ if (panelIndex !== -1) {
   const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
   const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
 
-  // Get the panel cost based on the roof type and shade selection
   panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
   instalationwithoutdiscount = panelCost + arialPlatformCost;
   installationCost = panelCost + arialPlatformCost - discountAmount;
   payBackPeriod = installationCost/yearlyElectricityCost;
   savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
-  
   
   normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
   govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
@@ -346,120 +342,17 @@ function updateResult(){
   energySavingsIn25YearsWrapper.textContent = Math.round(energySavingsIn25Years).toLocaleString();
 
   savings = [];
-for (let i = 1; i <= 25; i++) {
- const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
- const savingsInYearFinal = Math.round(savingsInYear);
+    for (let i = 1; i <= 25; i++) {
+    const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+    const savingsInYearFinal = Math.round(savingsInYear);
     savings.push({ year: i, savingsovertime: savingsInYearFinal });
- }
+  }
 
- savingsChart.data.labels = savings.map(row => row.year);
-    savingsChart.data.datasets[0].data = savings.map(row => row.savingsovertime);
-    savingsChart.update();
-
-  console.log("Panel Cost:" + panelCost + "\n" +
-              "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
-              "installationCost:" + installationCost + "\n" +
-              "payBackPeriod:" + payBackPeriod + "\n" +
-              "savingin25Years:" + savingin25Years + "\n" +
-              "energySavingsIn25Years:" + energySavingsIn25Years + "\n"
-  );
-  console.log(savings);
+  savingsChart.data.labels = savings.map(row => row.year);
+  savingsChart.data.datasets[0].data = savings.map(row => row.savingsovertime);
+  savingsChart.update();
    } else {
   //console.log("Panel data not found for the given number of panels.");
   }
-  
 }
-
 </script>
-
-
-<!--
-    let savings = [];
-
-    for (let i = 1; i <= 25; i++) {
-     const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
-     const savingsInYearFinal = Math.round(savingsInYear);
-        savings.push({ year: i, savingsovertime: savingsInYearFinal });
-     }
-     console.log(savings);
-
-    const ctx = document.getElementById('savingsChart');
-     new Chart(ctx, {
-      type: 'line',
-      data: {
-      labels: savings.map(row => row.year),
-      datasets: [{
-        data: savings.map(row => row.savingsovertime),
-        borderWidth: 1,
-        borderColor: '#004f56',
-        backgroundColor: '#e1f0ed',
-        tension: 0.4,
-        fill:{
-           target: 'origin',
-           below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0)'
-        }
-        }]
-       },
-      options: {
-       maintainAspectRatio: false,
-       animation: false,
-       plugins: { 
-        legend: {
-         display: false
-         },
-       },
-
-       scales: {
-        x: {
-          ticks: {
-              stepSize: 5
-            },
-          title:{
-            display: true,
-            text: 'Tijd (jaren)',
-            font: {
-              weight: 'bold'
-            }
-          }
-           },
-
-        y: {
-          ticks: {
-              stepSize: 10000
-            },
-          position: 'right',
-          title:{
-            display: true,
-            text: 'Besparingen(€)',
-            font: {
-              weight: 'bold'
-            }
-           }
-          }
-
-        }
-       }
-      });
-
-      function updateResult(){
-        savings = [];
-        for (let i = 1; i <= 25; i++) {
-         const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
-         const savingsInYearFinal = Math.round(savingsInYear);
-            savings.push({ year: i, savingsovertime: savingsInYearFinal });
-         }
-
-      }
-
-
-      //Update happen when the - and +
-      decreaseButton.addEventListener('click', function(){
-       finalNoOfPanels--;
-       updateResult();
-      });
-      
-      increaseButton.addEventListener('click', function(){
-       finalNoOfPanels++;
-       updateResult();
-      });-->
