@@ -160,6 +160,7 @@ const pannelData = [
 
  var storedData = sessionStorage.getItem("formData");
  var formData = JSON.parse(storedData);
+
  var yearlyUsage = formData.yearlyUsage;
  var payBackPeriod = formData.payBackPeriod;
  var payBackPeriodFinal = Math.round(payBackPeriod);
@@ -201,6 +202,121 @@ const pannelData = [
              "yearlyElectricityCost: " + yearlyElectricityCost + "\n" +
              "energySavingsIn25Years: " + energySavingsIn25Years + "\n" 
              );
+
+//Counter setup
+const increaseButton = document.getElementById('counter_increase');
+const decreaseButton = document.getElementById('counter_decrease');
+const counterField = document.getElementById('counter_input');
+
+//Setting new counter field value
+counterField.value = finalNoOfPanels;
+
+
+
+//Pannel Cost Estimation while click on the - and +
+function updateResult(){
+ counterField.value = finalNoOfPanels;
+ const roofTypeSelection = selectedRoofType;
+ const roofShadeSelection = selectedShade;
+ const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
+ 
+   if (panelIndex !== -1) {
+
+  // Determine the roof type and shade selection
+  const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
+  const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
+
+  // Get the panel cost based on the roof type and shade selection
+  panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
+  instalationwithoutdiscount = panelCost + arialPlatformCost;
+  installationCost = panelCost + arialPlatformCost - discountAmount;
+  payBackPeriod = installationCost/yearlyElectricityCost;
+  savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
+  energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
+  
+  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+  normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+
+  const savings = [];
+
+for (let i = 1; i <= 25; i++) {
+ const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+ const savingsInYearFinal = Math.round(savingsInYear);
+    savings.push({ year: i, savingsovertime: savingsInYearFinal });
+ }
+  
+new Chart(ctx, {
+      type: 'line',
+      data: {
+      labels: savings.map(row => row.year),
+      datasets: [{
+        data: savings.map(row => row.savingsovertime),
+        borderWidth: 1,
+        borderColor: '#004f56',
+        backgroundColor: '#e1f0ed',
+        tension: 0.4,
+        fill:{
+           target: 'origin',
+           below: 'rgba(141, 2, 31, 0.25)',
+           above: 'rgba(0, 0, 0, 0)'
+        }
+        }]
+       },
+      options: {
+       maintainAspectRatio: false,
+       animation: false,
+       plugins: { 
+        legend: {
+         display: false
+         },
+       },
+
+       scales: {
+        x: {
+          ticks: {
+              stepSize: 5
+            },
+          title:{
+            display: true,
+            text: 'Tijd (jaren)',
+            font: {
+              weight: 'bold'
+            }
+          }
+           },
+
+        y: {
+          ticks: {
+              stepSize: 10000
+            },
+          position: 'right',
+          title:{
+            display: true,
+            text: 'Besparingen(€)',
+            font: {
+              weight: 'bold'
+            }
+           }
+          }
+
+        }
+       }
+      });
+
+  
+  console.log("Panel Cost:" + panelCost + "\n" +
+              "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
+              "installationCost:" + installationCost + "\n" +
+              "payBackPeriod:" + payBackPeriod + "\n" +
+              "savingin25Years:" + savingin25Years + "\n" +
+              "energySavingsIn25Years:" + energySavingsIn25Years + "\n"
+  );
+  console.log(savings);
+   } else {
+  //console.log("Panel data not found for the given number of panels.");
+  }
+  
+}
 
 const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
 normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
@@ -289,121 +405,7 @@ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocale
       });
 
 
-//Counter setup
-const increaseButton = document.getElementById('counter_increase');
-const decreaseButton = document.getElementById('counter_decrease');
-const counterField = document.getElementById('counter_input');
-
-//Setting new counter field value
-counterField.value = finalNoOfPanels;
-
-
-
-//Pannel Cost Estimation while click on the - and +
-function updateResult(){
- counterField.value = finalNoOfPanels;
- const roofTypeSelection = selectedRoofType;
- const roofShadeSelection = selectedShade;
- const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
- 
-   if (panelIndex !== -1) {
-
-  // Determine the roof type and shade selection
-  const roofType = roofTypeSelection === "tilted" ? "Tilted" : "Flat";
-  const shadeSelection = roofShadeSelection === "yes" ? "Micro (x4)" : "String";
-
-  // Get the panel cost based on the roof type and shade selection
-  panelCost = parseFloat(pannelData[panelIndex][roofType][shadeSelection]);
-  instalationwithoutdiscount = panelCost + arialPlatformCost;
-  installationCost = panelCost + arialPlatformCost - discountAmount;
-  payBackPeriod = installationCost/yearlyElectricityCost;
-  savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
-  energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
-  
-  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
-  normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
-
-  const savings = [];
-
-for (let i = 1; i <= 25; i++) {
- const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
- const savingsInYearFinal = Math.round(savingsInYear);
-    savings.push({ year: i, savingsovertime: savingsInYearFinal });
- }
-  
- const ctx = document.getElementById('savingsChart');
-     new Chart(ctx, {
-      type: 'line',
-      data: {
-      labels: savings.map(row => row.year),
-      datasets: [{
-        data: savings.map(row => row.savingsovertime),
-        borderWidth: 1,
-        borderColor: '#004f56',
-        backgroundColor: '#e1f0ed',
-        tension: 0.4,
-        fill:{
-           target: 'origin',
-           below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0)'
-        }
-        }]
-       },
-      options: {
-       maintainAspectRatio: false,
-       animation: false,
-       plugins: { 
-        legend: {
-         display: false
-         },
-       },
-
-       scales: {
-        x: {
-          ticks: {
-              stepSize: 5
-            },
-          title:{
-            display: true,
-            text: 'Tijd (jaren)',
-            font: {
-              weight: 'bold'
-            }
-          }
-           },
-
-        y: {
-          ticks: {
-              stepSize: 10000
-            },
-          position: 'right',
-          title:{
-            display: true,
-            text: 'Besparingen(€)',
-            font: {
-              weight: 'bold'
-            }
-           }
-          }
-
-        }
-       }
-      });
-
-  console.log(savings);
-  console.log("Panel Cost:" + panelCost + "\n" +
-              "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
-              "installationCost:" + installationCost + "\n" +
-              "payBackPeriod:" + payBackPeriod + "\n" +
-              "savingin25Years:" + savingin25Years + "\n" +
-              "energySavingsIn25Years:" + energySavingsIn25Years + "\n"
-  );
-   } else {
-  //console.log("Panel data not found for the given number of panels.");
-  }
-  
-}
-
+      
 //Update happen when the - and +
 decreaseButton.addEventListener('click', function(){
  finalNoOfPanels--;
