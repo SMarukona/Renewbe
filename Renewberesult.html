@@ -179,8 +179,15 @@ const pannelData = [
  var selectedRoofType = formData.selectedRoofType;
  var panelCost = formData.panelCost;
  var arialPlatformCost = formData.arialPlatformCost;
- 
- 
+
+ let savings = [];
+
+    for (let i = 1; i <= 25; i++) {
+     const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+     const savingsInYearFinal = Math.round(savingsInYear);
+        savings.push({ year: i, savingsovertime: savingsInYearFinal });
+     }
+     console.log(savings);
 
  console.log("selectedOrientation: " + selectedOrientation + "\n" +  
              "noOfPanels: " + noOfPanels + "\n" +
@@ -211,7 +218,98 @@ const counterField = document.getElementById('counter_input');
 //Setting new counter field value
 counterField.value = finalNoOfPanels;
 
+const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
 
+const govDiscountWrapper = document.getElementById('gov_discount');
+govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+
+const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
+totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+
+const paybackWrapper = document.getElementById('payback_wrapper');
+paybackWrapper.textContent = payBackPeriodFinal;
+  
+const savingIn25Years = document.getElementById('25year_saving');
+savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
+  
+const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
+
+const ctx = document.getElementById('savingsChart');
+const savingsChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [], // Initially empty, will be populated on update
+        datasets: [{
+            data: [],
+            borderWidth: 1,
+            borderColor: '#004f56',
+            backgroundColor: '#e1f0ed',
+            tension: 0.4,
+            fill: {
+                target: 'origin',
+                below: 'rgba(141, 2, 31, 0.25)',
+                above: 'rgba(0, 0, 0, 0)'
+            }
+        }]
+    },
+    options: {
+        maintainAspectRatio: false,
+        animation: false,
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        scales: {
+            x: {
+                ticks: {
+                    stepSize: 5
+                },
+                title: {
+                    display: true,
+                    text: 'Tijd (jaren)',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            },
+            y: {
+                ticks: {
+                    stepSize: 10000
+                },
+                position: 'right',
+                title: {
+                    display: true,
+                    text: 'Besparingen(€)',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    }
+});
+
+
+
+//Update happen when the - and +
+decreaseButton.addEventListener('click', function(){
+ finalNoOfPanels--;
+ updateResult();
+});
+
+increaseButton.addEventListener('click', function(){
+ finalNoOfPanels++;
+ updateResult();
+});
+
+counterField.addEventListener('input', function () {
+    // Parse the input value as an integer
+    finalNoOfPanels = parseInt(counterField.value) || 0;
+    updateResult();
+});
 
 //Pannel Cost Estimation while click on the - and +
 function updateResult(){
@@ -242,7 +340,11 @@ for (let i = 1; i <= 25; i++) {
  const savingsInYearFinal = Math.round(savingsInYear);
     savings.push({ year: i, savingsovertime: savingsInYearFinal });
  }
-  
+
+ savingsChart.data.labels = savings.map(row => row.year);
+    savingsChart.data.datasets[0].data = savings.map(row => row.savingsovertime);
+    savingsChart.update();
+
   console.log("Panel Cost:" + panelCost + "\n" +
               "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
               "installationCost:" + installationCost + "\n" +
@@ -257,24 +359,10 @@ for (let i = 1; i <= 25; i++) {
   
 }
 
-const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
-normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+</script>
 
-const govDiscountWrapper = document.getElementById('gov_discount');
-govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
 
-const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
-totalInstolllationWrapper.textContent = installationCost.toLocaleString();
-
-const paybackWrapper = document.getElementById('payback_wrapper');
-paybackWrapper.textContent = payBackPeriodFinal;
-  
-const savingIn25Years = document.getElementById('25year_saving');
-savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
-  
-const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
-energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
-
+<!--
     let savings = [];
 
     for (let i = 1; i <= 25; i++) {
@@ -343,23 +431,24 @@ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocale
        }
       });
 
+      function updateResult(){
+        savings = [];
+        for (let i = 1; i <= 25; i++) {
+         const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+         const savingsInYearFinal = Math.round(savingsInYear);
+            savings.push({ year: i, savingsovertime: savingsInYearFinal });
+         }
+
+      }
 
 
-//Update happen when the - and +
-decreaseButton.addEventListener('click', function(){
- finalNoOfPanels--;
- updateResult();
-});
-
-increaseButton.addEventListener('click', function(){
- finalNoOfPanels++;
- updateResult();
-});
-
-counterField.addEventListener('input', function () {
-    // Parse the input value as an integer
-    finalNoOfPanels = parseInt(counterField.value) || 0;
-    updateResult();
-});
-
-</script>
+      //Update happen when the - and +
+      decreaseButton.addEventListener('click', function(){
+       finalNoOfPanels--;
+       updateResult();
+      });
+      
+      increaseButton.addEventListener('click', function(){
+       finalNoOfPanels++;
+       updateResult();
+      });-->
