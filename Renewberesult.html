@@ -158,6 +158,26 @@ const pannelData = [
     
 ];
 
+
+ 
+ 
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+
+
+
+//Pannel Cost Estimation while click on the - and +
+function updateResult(){
  var storedData = sessionStorage.getItem("formData");
  var formData = JSON.parse(storedData);
  var yearlyUsage = formData.yearlyUsage;
@@ -178,8 +198,28 @@ const pannelData = [
  var selectedRoofType = formData.selectedRoofType;
  var panelCost = formData.panelCost;
  var arialPlatformCost = formData.arialPlatformCost;
+ const roofTypeSelection = selectedRoofType;
+ const roofShadeSelection = selectedShade;
+ const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
  
- 
+
+ const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+ normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+
+ const govDiscountWrapper = document.getElementById('gov_discount');
+ govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+
+ const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
+ totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+
+ const paybackWrapper = document.getElementById('payback_wrapper');
+ paybackWrapper.textContent = payBackPeriodFinal;
+  
+ const savingIn25Years = document.getElementById('25year_saving');
+ savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
+  
+ const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
 
  console.log("selectedOrientation: " + selectedOrientation + "\n" +  
              "noOfPanels: " + noOfPanels + "\n" +
@@ -202,116 +242,6 @@ const pannelData = [
              "energySavingsIn25Years: " + energySavingsIn25Years + "\n" 
              );
 
- const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
- normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
-
- const govDiscountWrapper = document.getElementById('gov_discount');
- govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
-
- const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
- totalInstolllationWrapper.textContent = installationCost.toLocaleString();
-
- const paybackWrapper = document.getElementById('payback_wrapper');
- paybackWrapper.textContent = payBackPeriodFinal;
-  
- const savingIn25Years = document.getElementById('25year_saving');
- savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
-  
- const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
- energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
-
- 
-
- 
-
- 
-
-const savings = [];
-
-    for (let i = 1; i <= 25; i++) {
-     const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
-     const savingsInYearFinal = Math.round(savingsInYear);
-        savings.push({ year: i, savingsovertime: savingsInYearFinal });
-     }
-     console.log(savings);
-
-    const ctx = document.getElementById('savingsChart');
-     new Chart(ctx, {
-      type: 'line',
-      data: {
-      labels: savings.map(row => row.year),
-      datasets: [{
-        data: savings.map(row => row.savingsovertime),
-        borderWidth: 1,
-        borderColor: '#004f56',
-        backgroundColor: '#e1f0ed',
-        tension: 0.4,
-        fill:{
-           target: 'origin',
-           below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0)'
-        }
-        }]
-       },
-      options: {
-       maintainAspectRatio: false,
-       animation: false,
-       plugins: { 
-        legend: {
-         display: false
-         },
-       },
-
-       scales: {
-        x: {
-          ticks: {
-              stepSize: 5
-            },
-          title:{
-            display: true,
-            text: 'Tijd (jaren)',
-            font: {
-              weight: 'bold'
-            }
-          }
-           },
-
-        y: {
-          ticks: {
-              stepSize: 10000
-            },
-          position: 'right',
-          title:{
-            display: true,
-            text: 'Besparingen(€)',
-            font: {
-              weight: 'bold'
-            }
-           }
-          }
-
-        }
-       }
-      });
-
-
-//Counter setup
-const increaseButton = document.getElementById('counter_increase');
-const decreaseButton = document.getElementById('counter_decrease');
-const counterField = document.getElementById('counter_input');
-
-//Setting new counter field value
-counterField.value = finalNoOfPanels;
-
-
-
-//Pannel Cost Estimation while click on the - and +
-function updateResult(){
- counterField.value = finalNoOfPanels;
- const roofTypeSelection = selectedRoofType;
- const roofShadeSelection = selectedShade;
- const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
- 
    if (panelIndex !== -1) {
 
   // Determine the roof type and shade selection
@@ -337,6 +267,84 @@ function updateResult(){
   //console.log("Panel data not found for the given number of panels.");
   }
   
+    const savings = [];
+
+for (let i = 1; i <= 25; i++) {
+ const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+ const savingsInYearFinal = Math.round(savingsInYear);
+    savings.push({ year: i, savingsovertime: savingsInYearFinal });
+ }
+ console.log(savings);
+
+const ctx = document.getElementById('savingsChart');
+ new Chart(ctx, {
+  type: 'line',
+  data: {
+  labels: savings.map(row => row.year),
+  datasets: [{
+    data: savings.map(row => row.savingsovertime),
+    borderWidth: 1,
+    borderColor: '#004f56',
+    backgroundColor: '#e1f0ed',
+    tension: 0.4,
+    fill:{
+       target: 'origin',
+       below: 'rgba(141, 2, 31, 0.25)',
+       above: 'rgba(0, 0, 0, 0)'
+    }
+    }]
+   },
+  options: {
+   maintainAspectRatio: false,
+   animation: false,
+   plugins: { 
+    legend: {
+     display: false
+     },
+   },
+
+   scales: {
+    x: {
+      ticks: {
+          stepSize: 5
+        },
+      title:{
+        display: true,
+        text: 'Tijd (jaren)',
+        font: {
+          weight: 'bold'
+        }
+      }
+       },
+
+    y: {
+      ticks: {
+          stepSize: 10000
+        },
+      position: 'right',
+      title:{
+        display: true,
+        text: 'Besparingen(€)',
+        font: {
+          weight: 'bold'
+        }
+       }
+      }
+
+    }
+   }
+  });
+
+
+//Counter setup
+const increaseButton = document.getElementById('counter_increase');
+const decreaseButton = document.getElementById('counter_decrease');
+const counterField = document.getElementById('counter_input');
+
+//Setting new counter field value
+counterField.value = finalNoOfPanels;
+
+ 
 }
 
 //Update happen when the - and +
@@ -356,4 +364,5 @@ counterField.addEventListener('input', function () {
     updateResult();
 });
 
+updateResult();
 </script>
