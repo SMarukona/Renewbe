@@ -158,38 +158,42 @@ const pannelData = [
     
 ];
 
- var storedData = sessionStorage.getItem("formData");
- var formData = JSON.parse(storedData);
 
- var yearlyUsage = formData.yearlyUsage;
- var payBackPeriod = formData.payBackPeriod;
- var payBackPeriodFinal = Math.round(payBackPeriod);
- var savingin25Years = formData.savingin25Years;
- var savingin25YearsFinal = Math.round(savingin25Years);
- var energySavingsIn25Years = formData.energySavingsIn25Years;
- var energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
- var yearlyElectricityCost = formData.yearlyElectricityCost;
- var selectedOrientation = formData.selectedOrientation;
- var instalationwithoutdiscount = formData.instalationwithoutdiscount;
- var discountAmount = formData.discountAmount;
- var installationCost = formData.installationCost;
- var noOfPanels = formData.noOfPanels;
- var finalNoOfPanels = Math.round(noOfPanels);
- var selectedShade =  formData.selectedShade;
- var selectedRoofType = formData.selectedRoofType;
- var panelCost = formData.panelCost;
- var arialPlatformCost = formData.arialPlatformCost;
+// Data taken from the Calculator page
+var storedData = sessionStorage.getItem("formData");
+var formData = JSON.parse(storedData);
+var yearlyUsage = formData.yearlyUsage;
+var payBackPeriod = formData.payBackPeriod;
+var yearlyElectricityCost = formData.yearlyElectricityCost;
+var selectedOrientation = formData.selectedOrientation;
+var instalationwithoutdiscount = formData.instalationwithoutdiscount;
+var discountAmount = formData.discountAmount;
+var installationCost = formData.installationCost;
+var noOfPanels = formData.noOfPanels;
+var savingin25Years = formData.savingin25Years;
+var energySavingsIn25Years = formData.energySavingsIn25Years;
+var selectedShade =  formData.selectedShade;
+var selectedRoofType = formData.selectedRoofType;
+var panelCost = formData.panelCost;
+var arialPlatformCost = formData.arialPlatformCost;
 
- let savings = [];
+//Claulations from the form data
+var payBackPeriodFinal = Math.round(payBackPeriod);
+var savingin25YearsFinal = Math.round(savingin25Years);
+var energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
+var finalNoOfPanels = Math.round(noOfPanels);
 
-    for (let i = 1; i <= 25; i++) {
+ 
+// New declations
+let savings = [];
+
+for (let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
      const savingsInYearFinal = Math.round(savingsInYear);
         savings.push({ year: i, savingsovertime: savingsInYearFinal });
-     }
-     console.log(savings);
+}
 
- console.log("selectedOrientation: " + selectedOrientation + "\n" +  
+console.log("selectedOrientation: " + selectedOrientation + "\n" +  
              "noOfPanels: " + noOfPanels + "\n" +
              "finalNoOfPanels: " + finalNoOfPanels + "\n" +
              "selectedShade: " + selectedShade + "\n" +
@@ -210,39 +214,34 @@ const pannelData = [
              "energySavingsIn25Years: " + energySavingsIn25Years + "\n" 
              );
 
-//Counter setup
+//Elements
 const increaseButton = document.getElementById('counter_increase');
 const decreaseButton = document.getElementById('counter_decrease');
 const counterField = document.getElementById('counter_input');
-
-//Setting new counter field value
-counterField.value = finalNoOfPanels;
-
 const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
-normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
-
-const govDiscountWrapper = document.getElementById('gov_discount');
-govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
-
 const totalInstolllationWrapper = document.getElementById('total_instolllation-price');
-totalInstolllationWrapper.textContent = installationCost.toLocaleString();
-
-const paybackWrapper = document.getElementById('payback_wrapper');
-paybackWrapper.textContent = payBackPeriodFinal;
-  
 const savingIn25Years = document.getElementById('25year_saving');
-savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
-  
+const paybackWrapper = document.getElementById('payback_wrapper');
+const govDiscountWrapper = document.getElementById('gov_discount');
 const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
+const ctx = document.getElementById('savingsChart');
+
+//Displaying values
+counterField.value = finalNoOfPanels;
+normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+paybackWrapper.textContent = payBackPeriodFinal;
+savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
 energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
 
-const ctx = document.getElementById('savingsChart');
+
 const savingsChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: [], // Initially empty, will be populated on update
+        labels: savings.map(row => row.year), // Initially empty, will be populated on update
         datasets: [{
-            data: [],
+            data: savings.map(row => row.savingsovertime),
             borderWidth: 1,
             borderColor: '#004f56',
             backgroundColor: '#e1f0ed',
@@ -299,7 +298,7 @@ function addData(chart, label, newData) {
     });
     chart.update();
 }
-addData();
+
 //Update happen when the - and +
 decreaseButton.addEventListener('click', function(){
  finalNoOfPanels--;
