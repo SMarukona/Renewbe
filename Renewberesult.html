@@ -339,6 +339,12 @@ function updateResult(){
   
   
   normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+  govDiscountWrapper.textContent = discountAmount.toLocaleString(); 
+  totalInstolllationWrapper.textContent = installationCost.toLocaleString();
+  paybackWrapper.textContent = payBackPeriodFinal;
+  savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
+  energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
+  
   savings = [];
 for (let i = 1; i <= 25; i++) {
  const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
