@@ -234,75 +234,14 @@ function updateResult(){
   savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   
-  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+  
   normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
-
-  const savings = [];
-
+  savings = [];
 for (let i = 1; i <= 25; i++) {
  const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
  const savingsInYearFinal = Math.round(savingsInYear);
     savings.push({ year: i, savingsovertime: savingsInYearFinal });
  }
-  
-new Chart(ctx, {
-      type: 'line',
-      data: {
-      labels: savings.map(row => row.year),
-      datasets: [{
-        data: savings.map(row => row.savingsovertime),
-        borderWidth: 1,
-        borderColor: '#004f56',
-        backgroundColor: '#e1f0ed',
-        tension: 0.4,
-        fill:{
-           target: 'origin',
-           below: 'rgba(141, 2, 31, 0.25)',
-           above: 'rgba(0, 0, 0, 0)'
-        }
-        }]
-       },
-      options: {
-       maintainAspectRatio: false,
-       animation: false,
-       plugins: { 
-        legend: {
-         display: false
-         },
-       },
-
-       scales: {
-        x: {
-          ticks: {
-              stepSize: 5
-            },
-          title:{
-            display: true,
-            text: 'Tijd (jaren)',
-            font: {
-              weight: 'bold'
-            }
-          }
-           },
-
-        y: {
-          ticks: {
-              stepSize: 10000
-            },
-          position: 'right',
-          title:{
-            display: true,
-            text: 'Besparingen(€)',
-            font: {
-              weight: 'bold'
-            }
-           }
-          }
-
-        }
-       }
-      });
-
   
   console.log("Panel Cost:" + panelCost + "\n" +
               "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
@@ -336,7 +275,7 @@ savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
 const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
 energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
 
-     const savings = [];
+    let savings = [];
 
     for (let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
@@ -405,7 +344,7 @@ energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocale
       });
 
 
-      
+
 //Update happen when the - and +
 decreaseButton.addEventListener('click', function(){
  finalNoOfPanels--;
