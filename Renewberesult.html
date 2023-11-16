@@ -320,6 +320,9 @@ function updateResult(){
   savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   
+  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
+  normalInstallationPriceWrapper.textContent = instalationwithoutdiscount.toLocaleString();
+
   const savings = [];
 
 for (let i = 1; i <= 25; i++) {
@@ -386,7 +389,7 @@ for (let i = 1; i <= 25; i++) {
         }
        }
       });
-      
+
   console.log(savings);
   console.log("Panel Cost:" + panelCost + "\n" +
               "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
