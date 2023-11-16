@@ -654,29 +654,26 @@ function renewBeCalculater() {
   const energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   const energySavingsIn25YearsFinal = Math.round(energySavingsIn25Years);
   
-      var formData = {
-        selectedOrientation: selectedOrientation,
-        yearlyUsage: yearlyUsage,
-        capacity: capacity,
-        noOfPanels: noOfPanels,
-        selectedShade: selectedShade,
-        selectedRoofType: selectedRoofType,
-        panelCost: panelCost,
-        payBackPeriod: payBackPeriod,
-        savingin25Years: savingin25Years,
-        energySavingsIn25Years: energySavingsIn25Years,
-        yearlyElectricityCost: yearlyElectricityCost,
-        instalationwithoutdiscount: instalationwithoutdiscount,
-        discountAmount: discountAmount,
-        installationCost: installationCost,
-        arialPlatformCost: arialPlatformCost,
-        }; 
+  var formData = {
+      selectedOrientation: selectedOrientation,
+      yearlyUsage: yearlyUsage,
+      capacity: capacity,
+      noOfPanels: noOfPanels,
+      selectedShade: selectedShade,
+      selectedRoofType: selectedRoofType,
+      panelCost: panelCost,
+      payBackPeriod: payBackPeriod,
+      savingin25Years: savingin25Years,
+      energySavingsIn25Years: energySavingsIn25Years,
+      yearlyElectricityCost: yearlyElectricityCost,
+      instalationwithoutdiscount: instalationwithoutdiscount,
+      discountAmount: discountAmount,
+      installationCost: installationCost,
+      arialPlatformCost: arialPlatformCost,
+      }; 
   sessionStorage.setItem("formData", JSON.stringify(formData));
-
 }
 
- const lasSubmit = document.getElementById('next9');
-  lasSubmit.addEventListener("click", renewBeCalculater);
-
-
+const lasSubmit = document.getElementById('next9');
+lasSubmit.addEventListener("click", renewBeCalculater);
 </script>
