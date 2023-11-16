@@ -220,7 +220,7 @@ savingIn25Years.textContent = savingin25YearsFinal.toLocaleString();
 const energySavingsIn25YearsWrapper = document.getElementById('energysavingsin_25years');
 energySavingsIn25YearsWrapper.textContent = energySavingsIn25YearsFinal.toLocaleString();
 
-const savings = [];
+     const savings = [];
 
     for (let i = 1; i <= 25; i++) {
      const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
@@ -320,6 +320,15 @@ function updateResult(){
   savingin25Years = (25 - payBackPeriod)*yearlyElectricityCost;
   energySavingsIn25Years = (25 - payBackPeriod) * yearlyUsage;
   
+  const savings = [];
+
+for (let i = 1; i <= 25; i++) {
+ const savingsInYear = (i - payBackPeriod) * yearlyElectricityCost;
+ const savingsInYearFinal = Math.round(savingsInYear);
+    savings.push({ year: i, savingsovertime: savingsInYearFinal });
+ }
+  
+  console.log(savings);
   console.log("Panel Cost:" + panelCost + "\n" +
               "instalationwithoutdiscount:" + instalationwithoutdiscount + "\n" +
               "installationCost:" + installationCost + "\n" +
