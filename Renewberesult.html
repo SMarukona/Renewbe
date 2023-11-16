@@ -174,7 +174,9 @@ const pannelData = [
 
 
 
-
+const decreaseButton = document.getElementById('counter_decrease');
+const increaseButton = document.getElementById('counter_increase');
+const counterField = document.getElementById('counter_input');
 
 //Pannel Cost Estimation while click on the - and +
 function updateResult(){
@@ -198,9 +200,14 @@ function updateResult(){
  var selectedRoofType = formData.selectedRoofType;
  var panelCost = formData.panelCost;
  var arialPlatformCost = formData.arialPlatformCost;
+ 
+ counterField.value = finalNoOfPanels;
+
  const roofTypeSelection = selectedRoofType;
  const roofShadeSelection = selectedShade;
  const panelIndex = pannelData.findIndex(item => item["Amount of Solar Panels"] === finalNoOfPanels);
+ 
+ //Setting new counter field value
  
 
  const normalInstallationPriceWrapper = document.getElementById('normal_installation-price');
@@ -335,20 +342,10 @@ const ctx = document.getElementById('savingsChart');
    }
   });
 
-
-//Counter setup
-const increaseButton = document.getElementById('counter_increase');
-const decreaseButton = document.getElementById('counter_decrease');
-const counterField = document.getElementById('counter_input');
-
-//Setting new counter field value
-counterField.value = finalNoOfPanels;
-
- 
 }
 
 //Update happen when the - and +
-increaseButton.addEventListener('click', function(){
+decreaseButton.addEventListener('click', function(){
  finalNoOfPanels--;
  updateResult();
 });
